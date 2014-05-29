@@ -2,8 +2,10 @@ class Head {
   public PVector[] points;
   color fillColor,
         strokeColor;
+  Ear leftEar, rightEar;
   Eye leftEye, rightEye;
   private int detail,
+              earLength,
               eyeRadius,
               eyeSeparation = 38,
               radius,
@@ -19,6 +21,9 @@ class Head {
     strokeColor = #555555;
     detail = (int)random(4, 10);
     eyeRadius = (int)random(25, 38);
+    earLength = (int)random(10, 30);
+    leftEar = new Ear(earLength);
+    rightEar = new Ear(earLength);
     leftEye = new Eye(eyeRadius);
     rightEye = new Eye(eyeRadius);
     snout = new Snout(snoutRadius);
@@ -26,7 +31,7 @@ class Head {
     float angle = PI/2,
           angleIncrement = TWO_PI/detail;
     for(int i = 0; i < detail; i++) {
-      //float distance = radius;*(1 + (noise(i) - 0.5)/5);
+      //float distance = radius;
       float distance = radius*(1 + (noise(i) - 0.5)/5);
       float x = distance*cos(angle),
             y = distance*sin(angle);
@@ -47,6 +52,8 @@ class Head {
     endShape();
     popMatrix();
     drawFace();
+  }
+  public void drawEars() {
   }
   public void drawFace() {
     pushMatrix();
