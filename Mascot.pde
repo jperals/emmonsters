@@ -15,12 +15,12 @@ class Mascot {
   public void draw() {
     pushMatrix();
     translate(width/2, height/2 - headPosition/4);
-    //noFill();
     fill(fillColor);
+    //noFill();
     stroke(strokeColor);
     strokeWeight(strokeWidth);
     beginShape();
-    for(int i = 0; i < trunk.points.length; i++) {
+    for(int i = trunk.points.length/2; i < trunk.points.length; i++) {
       int j = i % trunk.points.length;
       PVector point = trunk.points[j];
       curveVertex(point.x, point.y);
@@ -32,7 +32,7 @@ class Mascot {
       curveVertex(point.x, point.y + headPosition);
       //ellipse(point.x, point.y + headPosition, 10, 10);
     }
-    for(int i = 1; i < 3; i++) {
+    for(int i = 1; i < trunk.points.length/2 + 3; i++) {
       int j = i % detail;
       PVector point = trunk.points[j];
       curveVertex(point.x, point.y);
