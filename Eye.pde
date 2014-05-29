@@ -3,6 +3,7 @@ class Eye {
                 irisColor = color(random(127, 207), random(127, 207), random(127, 207)),
                 pupilColor = #000000;
   private int eyeballRadius, irisRadius, pupilRadius;
+  private IrregularCircle irregularCircle;
   Eye() {
     this(38);
   }
@@ -10,16 +11,21 @@ class Eye {
     eyeballRadius = radius;
     irisRadius = eyeballRadius / 2;
     pupilRadius = irisRadius / 2;
+    irregularCircle = new IrregularCircle(eyeballRadius);
   }
   public void draw() {
     pushStyle();
+    pushMatrix();
     fill(eyeballColor);
-    ellipse(0, 0, eyeballRadius*2, eyeballRadius*2);
+    irregularCircle.draw();
     fill(irisColor);
     noStroke();
-    ellipse(0, 0, irisRadius*2, irisRadius*2);
+    scale((float)irisRadius/eyeballRadius);
+    irregularCircle.draw();
     fill(pupilColor);
-    ellipse(0, 0, pupilRadius*2, pupilRadius*2);
+    scale((float)pupilRadius/irisRadius);
+    irregularCircle.draw();
+    popMatrix();
     popStyle();
   }
 }
