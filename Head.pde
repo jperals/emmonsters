@@ -42,6 +42,9 @@ class Head {
     }
     endShape();
     popMatrix();
+    drawFace();
+  }
+  public void drawFace() {
     pushMatrix();
     translate(-eyeSeparation, -radius/10);
     leftEye.draw();

@@ -13,12 +13,14 @@ class Trunk {
     fillColor = #FFFFFF;
     strokeColor = #555555;
     points = new PVector[detail];
+    float angle = -PI/2,
+          angleIncrement = TWO_PI / detail;
     for(int i = 0; i < detail; i++) {
-      float angle = TWO_PI * (float)i/detail,
-            distanceToCenter = radius*(1 + (noise(i) - 0.5)/5);
+      float distanceToCenter = radius*(1 + (noise(i) - 0.5)/5);
       int x = (int)(distanceToCenter*cos(angle)),
           y = (int)(distanceToCenter*sin(angle));
       points[i] = new PVector(x, y);
+      angle += angleIncrement;
     }
   }
   public void draw() {
@@ -27,7 +29,7 @@ class Trunk {
     strokeWeight(strokeWidth);
     translate(width/2, height/2);
     beginShape();
-    for(int i = 0; i < detail + 3; i++) {
+    for(int i = 0; i < detail + 1; i++) {
       int j = i % detail;
       PVector point = points[j];
       curveVertex(point.x, point.y);
