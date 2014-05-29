@@ -3,11 +3,12 @@ class Head {
   color fillColor,
         strokeColor;
   Eye leftEye, rightEye;
-  int detail = 10,
-      eyeSeparation = 38,
-      radius,
-      snoutRadius = 30,
-      strokeWidth = 5;
+  private int detail,
+              eyeRadius,
+              eyeSeparation = 38,
+              radius,
+              snoutRadius = 30,
+              strokeWidth = 5;
   Snout snout;
   Head() {
     this(75);
@@ -16,13 +17,16 @@ class Head {
     this.radius = radius;
     fillColor = #FFFFFF;
     strokeColor = #555555;
-    leftEye = new Eye(eyeSeparation);
-    rightEye = new Eye(eyeSeparation);
+    detail = (int)random(4, 10);
+    eyeRadius = (int)random(25, 38);
+    leftEye = new Eye(eyeRadius);
+    rightEye = new Eye(eyeRadius);
     snout = new Snout(snoutRadius);
     points = new PVector[detail];
     float angle = PI/2,
           angleIncrement = TWO_PI/detail;
     for(int i = 0; i < detail; i++) {
+      //float distance = radius;*(1 + (noise(i) - 0.5)/5);
       float distance = radius*(1 + (noise(i) - 0.5)/5);
       float x = distance*cos(angle),
             y = distance*sin(angle);

@@ -1,5 +1,5 @@
 class Mascot {
-  private color fillColor = #FFFFFF,
+  private color fillColor,
                 strokeColor = #555555;
   private Head head;
   private Trunk trunk;
@@ -9,6 +9,9 @@ class Mascot {
               headPosition = -(int)random(trunkRadius + headRadius, trunkRadius*2),
               strokeWidth = 4;
   Mascot() {
+    int blueComponent = (int)random(127, 255),
+        greenComponent = (int)random(blueComponent, 255);
+    fillColor = color(random(greenComponent, 255), greenComponent, blueComponent);
     head = new Head(headRadius);
     trunk = new Trunk(trunkRadius);
   }
@@ -20,20 +23,20 @@ class Mascot {
     stroke(strokeColor);
     strokeWeight(strokeWidth);
     beginShape();
-    for(int i = trunk.points.length/2; i < trunk.points.length; i++) {
+    for(int i = trunk.points.length/2 - 1; i < trunk.points.length; i++) {
       int j = i % trunk.points.length;
       PVector point = trunk.points[j];
       curveVertex(point.x, point.y);
       //ellipse(point.x, point.y, 10, 10);
     }
     for(int i = 1; i < head.points.length; i++) {
-      int j = i % detail;
+      int j = i % head.points.length;
       PVector point = head.points[j];
       curveVertex(point.x, point.y + headPosition);
       //ellipse(point.x, point.y + headPosition, 10, 10);
     }
-    for(int i = 1; i < trunk.points.length/2 + 3; i++) {
-      int j = i % detail;
+    for(int i = 1; i < min(trunk.points.length/2 + 3, trunk.points.length - 1); i++) {
+      int j = i % trunk.points.length;
       PVector point = trunk.points[j];
       curveVertex(point.x, point.y);
       //ellipse(point.x, point.y, 10, 10);

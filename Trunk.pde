@@ -2,7 +2,7 @@ class Trunk {
   public PVector[] points;
   color fillColor,
         strokeColor;
-  int detail = 10,
+  int detail,
       radius,
       strokeWidth = 5;
   Trunk() {
@@ -12,10 +12,12 @@ class Trunk {
     this.radius = radius;
     fillColor = #FFFFFF;
     strokeColor = #555555;
+    detail = (int)random(5, 10);
     points = new PVector[detail];
     float angle = -PI/2,
           angleIncrement = TWO_PI / detail;
     for(int i = 0; i < detail; i++) {
+      //float distanceToCenter = radius;
       float distanceToCenter = radius*(1 + (noise(i) - 0.5)/5);
       int x = (int)(distanceToCenter*cos(angle)),
           y = (int)(distanceToCenter*sin(angle));
