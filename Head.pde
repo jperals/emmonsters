@@ -1,5 +1,5 @@
 class Head {
-  float[] points;
+  public PVector[] points;
   color fillColor,
         strokeColor;
   Eye leftEye, rightEye;
@@ -19,9 +19,15 @@ class Head {
     leftEye = new Eye(eyeSeparation);
     rightEye = new Eye(eyeSeparation);
     snout = new Snout(snoutRadius);
-    points = new float[detail];
+    points = new PVector[detail];
+    float angle = PI/2,
+          angleIncrement = TWO_PI/detail;
     for(int i = 0; i < detail; i++) {
-      points[i] = radius*(1 + (noise(i) - 0.5)/5);
+      float distance = radius*(1 + (noise(i) - 0.5)/5);
+      float x = distance*cos(angle),
+            y = distance*sin(angle);
+      points[i] = new PVector(x, y);
+      angle += angleIncrement;
     }
   }
   public void draw() {
@@ -30,13 +36,9 @@ class Head {
     strokeWeight(strokeWidth);
     pushMatrix();
     beginShape();
-    rotate(PI/2);
     for(int i = 0; i < detail + 1; i++) {
       int j = i % detail;
-      float angle = TWO_PI * (float)j/detail;
-      float x = points[j]*cos(angle),
-            y = points[j]*sin(angle);
-      curveVertex(x, y);
+      curveVertex(points[j].x, points[j].y);
     }
     endShape();
     popMatrix();
