@@ -19,7 +19,7 @@ class Head {
     this.radius = radius;
     fillColor = #FFFFFF;
     strokeColor = #555555;
-    detail = (int)random(4, 10);
+    detail = (int)random(4, 15);
     eyeRadius = (int)random(25, 38);
     earLength = (int)random(10, 30);
     leftEar = new Ear(earLength);

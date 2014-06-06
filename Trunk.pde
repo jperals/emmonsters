@@ -12,7 +12,7 @@ class Trunk {
     this.radius = radius;
     fillColor = #FFFFFF;
     strokeColor = #555555;
-    detail = (int)random(5, 10);
+    detail = (int)random(5, 15);
     points = new PVector[detail];
     float angle = -PI/2,
           angleIncrement = TWO_PI / detail;
