@@ -1,4 +1,5 @@
 class Mascot {
+  private boolean drawPoints = false;
   private color fillColor,
                 strokeColor = #555555;
   private Head head;
@@ -27,19 +28,25 @@ class Mascot {
       int j = i % trunk.points.length;
       PVector point = trunk.points[j];
       curveVertex(point.x, point.y);
-      //ellipse(point.x, point.y, 10, 10);
+      if(drawPoints) {
+        ellipse(point.x, point.y, 10, 10);
+      }
     }
     for(int i = 1; i < head.points.length; i++) {
       int j = i % head.points.length;
       PVector point = head.points[j];
       curveVertex(point.x, point.y + headPosition);
-      //ellipse(point.x, point.y + headPosition, 10, 10);
+      if(drawPoints) {
+        ellipse(point.x, point.y + headPosition, 10, 10);
+      }
     }
     for(int i = 1; i < min(trunk.points.length/2 + 3, trunk.points.length - 1); i++) {
       int j = i % trunk.points.length;
       PVector point = trunk.points[j];
       curveVertex(point.x, point.y);
-      //ellipse(point.x, point.y, 10, 10);
+      if(drawPoints) {
+        ellipse(point.x, point.y, 10, 10);
+      }
     }
     endShape();
     translate(0, headPosition);
