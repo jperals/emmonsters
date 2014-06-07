@@ -21,7 +21,7 @@ class Head {
     strokeColor = #555555;
     detail = (int)random(4, 15);
     eyeRadius = (int)random(25, 38);
-    earLength = (int)random(10, 30);
+    earLength = (int)random(10, 80);
     leftEar = new Ear(earLength);
     rightEar = new Ear(earLength);
     leftEye = new Eye(eyeRadius);
@@ -54,6 +54,17 @@ class Head {
     drawFace();
   }
   public void drawEars() {
+    float earAngle = 35*2*PI/360;
+    pushMatrix();
+    rotate(-earAngle);
+    translate(0, -radius*3/4);
+    leftEar.draw();
+    popMatrix();
+    pushMatrix();
+    rotate(earAngle);
+    translate(0, -radius*3/4);
+    rightEar.draw();
+    popMatrix();
   }
   public void drawFace() {
     pushMatrix();

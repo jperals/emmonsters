@@ -23,6 +23,10 @@ class Mascot {
     //noFill();
     stroke(strokeColor);
     strokeWeight(strokeWidth);
+    pushMatrix();
+    translate(0, headPosition);
+    head.drawEars();
+    popMatrix();
     beginShape();
     for(int i = trunk.points.length/2 - 1; i < trunk.points.length; i++) {
       int j = i % trunk.points.length;
