@@ -5,7 +5,7 @@ class Head {
   Ear leftEar, rightEar;
   Eye leftEye, rightEye;
   private int detail,
-              earLength,
+              earDetail,
               eyeRadius,
               eyeSeparation = 38,
               radius,
@@ -21,9 +21,9 @@ class Head {
     strokeColor = #555555;
     detail = (int)random(4, 15);
     eyeRadius = (int)random(25, 38);
-    earLength = (int)random(10, 80);
-    leftEar = new Ear(earLength);
-    rightEar = new Ear(earLength);
+    earDetail = (int)random(3, 6);
+    leftEar = new Ear(earDetail);
+    rightEar = leftEar.reversed();
     leftEye = new Eye(eyeRadius);
     rightEye = new Eye(eyeRadius);
     snout = new Snout(snoutRadius);
@@ -54,7 +54,7 @@ class Head {
     drawFace();
   }
   public void drawEars() {
-    float earAngle = 35*2*PI/360;
+    float earAngle = 45*2*PI/360;
     pushMatrix();
     rotate(-earAngle);
     translate(0, -radius*3/4);
