@@ -1,23 +1,39 @@
 class Snout {
-  private color baseColor = #BB9944,
-                noseColor = #331100;
-  private int baseRadius, noseRadius;
+  private boolean hasDifferentColor,
+                  drawContourTop,
+                  drawContourBottom;
+  private color snoutColor = #BB9944,
+                rhinariumColor = #331100;
+  private int snoutRadius, rhinariumRadius;
+  private IrregularCircle outerSnout, rhinarium;
   Snout() {
     this(15);
   }
   Snout(int radius) {
-    baseRadius = radius;
-    noseRadius = (int) (radius * random(0.5, 1));
+    snoutRadius = radius;
+    rhinariumRadius = (int) (radius * random(0.5, 1));
+    hasDifferentColor = randomBoolean();
+    drawContourTop = hasDifferentColor && randomBoolean();
+    drawContourBottom = drawContourTop && randomBoolean();
+    outerSnout = new IrregularCircle(snoutRadius);
+    rhinarium = new IrregularCircle(rhinariumRadius);    
   }
   public void draw() {
     pushStyle();
-    fill(baseColor);
-    ellipse(0, 0, baseRadius*2, baseRadius*2);
-    fill(noseColor);
+    pushStyle();
+    if(!drawContourBottom) {
+      noStroke();
+    }
+    if(hasDifferentColor) {
+      fill(snoutColor);
+    }
+    outerSnout.draw();
+    popStyle();
+    fill(rhinariumColor);
     noStroke();
     pushMatrix();
-    translate(0, (noseRadius - baseRadius)/2);
-    ellipse(0, 0, noseRadius*2, noseRadius*2);
+    translate(0, (rhinariumRadius - snoutRadius)/2);
+    rhinarium.draw();
     popMatrix();
     popStyle();
   }

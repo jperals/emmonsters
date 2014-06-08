@@ -2,16 +2,17 @@ class Eye {
   private color eyeballColor = #FFFFFF,
                 irisColor = color(random(127, 207), random(127, 207), random(127, 207)),
                 pupilColor = #000000;
-  private int eyeballRadius, irisRadius, pupilRadius;
+  private int detail, eyeballRadius, irisRadius, pupilRadius;
   private IrregularCircle irregularCircle;
   Eye() {
     this(38);
   }
   Eye(int radius) {
+    detail = (int)random(5, 8);
     eyeballRadius = radius;
     irisRadius = eyeballRadius / 2;
     pupilRadius = irisRadius / 2;
-    irregularCircle = new IrregularCircle(eyeballRadius);
+    irregularCircle = new IrregularCircle(eyeballRadius, detail);
   }
   public void draw() {
     pushStyle();

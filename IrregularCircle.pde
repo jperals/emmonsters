@@ -1,12 +1,16 @@
 class IrregularCircle {
-  private int detail = 5,
+  private int detail,
               radius;
   private PVector[] points;
   IrregularCircle() {
-    this(30);
+    this(30, (int)random(5, 8));
   }
   IrregularCircle(int radius) {
+    this(radius, (int)random(5, 8));
+  }
+  IrregularCircle(int radius, int detail) {
     this.radius = radius;
+    this.detail = detail;
     float angle = PI/2,
           angleIncrement = TWO_PI/detail;
     points = new PVector[detail];
