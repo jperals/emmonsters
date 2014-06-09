@@ -36,7 +36,7 @@ class IrregularEllipse {
       to += detail;
     }
     pushMatrix();
-    scale(ellipseWidth/ellipseHeight, 1);
+    scale((float)ellipseWidth/ellipseHeight, 1);
     beginShape();
     for(int i = from; i < to + 3; i++) {
       int j = i % detail;
@@ -46,7 +46,6 @@ class IrregularEllipse {
     }
     endShape();
     popMatrix();
-    //println(ellipseWidth, ellipseHeight);
   }
 }
 

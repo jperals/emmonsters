@@ -13,8 +13,7 @@ class Snout {
   }
   Snout(int radius) {
     snoutHeight = radius;
-    snoutWidth = (int)(snoutHeight*random(1, 2.5));
-    //println(snoutHeight, snoutWidth);
+    snoutWidth = (int)(snoutHeight*random(1, 2));
     rhinariumRadius = (int) (radius * random(0.25, 0.75));
     hasDifferentColor = randomBoolean();
     drawContourTop = randomBoolean(0.75);
