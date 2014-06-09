@@ -9,7 +9,7 @@ class Head {
               eyeRadius,
               eyeSeparation = 38,
               radius,
-              snoutRadius = 30,
+              snoutRadius,
               strokeWidth = 5;
   Snout snout;
   Head() {
@@ -20,8 +20,9 @@ class Head {
     fillColor = #FFFFFF;
     strokeColor = #555555;
     detail = (int)random(4, 15);
-    eyeRadius = (int)random(25, 38);
     earDetail = (int)random(3, 6);
+    eyeRadius = (int)random(25, 38);
+    snoutRadius = (int)random(25, 45);
     leftEar = new Ear(earDetail);
     rightEar = leftEar.reversed();
     leftEye = new Eye(eyeRadius);
