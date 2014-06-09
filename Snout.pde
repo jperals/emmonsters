@@ -1,41 +1,60 @@
 class Snout {
   private boolean hasDifferentColor,
                   drawContourTop,
-                  drawContourBottom;
+                  drawContourBottom,
+                  drawRhinarium;
   private color snoutColor = #BB9944,
                 rhinariumColor = #331100;
-  private int snoutRadius, rhinariumRadius;
-  private IrregularCircle outerSnout, rhinarium;
+  private int snoutWidth, snoutHeight, rhinariumRadius;
+  private IrregularCircle rhinarium;
+  private IrregularEllipse outerSnout;
   Snout() {
     this(15);
   }
   Snout(int radius) {
-    snoutRadius = radius;
-    rhinariumRadius = (int) (radius * random(0.5, 1));
+    snoutHeight = radius;
+    snoutWidth = (int)(snoutHeight*random(1, 2.5));
+    //println(snoutHeight, snoutWidth);
+    rhinariumRadius = (int) (radius * random(0.25, 0.75));
     hasDifferentColor = randomBoolean();
-    drawContourTop = hasDifferentColor && randomBoolean();
+    drawContourTop = randomBoolean(0.75);
     drawContourBottom = drawContourTop && randomBoolean();
-    outerSnout = new IrregularCircle(snoutRadius);
-    rhinarium = new IrregularCircle(rhinariumRadius);    
+    drawRhinarium = randomBoolean(0.75);
+    outerSnout = new IrregularEllipse(snoutWidth, snoutHeight);
+    rhinarium = new IrregularCircle(rhinariumRadius, (int)random(3, 8));    
   }
   public void draw() {
     pushStyle();
+    if(hasDifferentColor) {
+      fill(snoutColor);
+    }
     pushStyle();
     if(!drawContourBottom) {
       noStroke();
     }
-    if(hasDifferentColor) {
-      fill(snoutColor);
-    }
     outerSnout.draw();
     popStyle();
-    fill(rhinariumColor);
-    noStroke();
+    if(!drawContourBottom && drawContourTop) {
+      int outerSnoutDetail = outerSnout.getNumberOfPoints();
+      float angleBetweenPoints = (2*PI) / outerSnoutDetail;
+      int pointsToMoveBack = outerSnoutDetail/2;
+      outerSnout.drawPartial(-pointsToMoveBack, (int)(outerSnoutDetail/2) - pointsToMoveBack);
+    }
     pushMatrix();
-    translate(0, (rhinariumRadius - snoutRadius)/2);
-    rhinarium.draw();
-    popMatrix();
+    if(drawRhinarium) {
+      fill(rhinariumColor);
+      noStroke();
+      translate(0, (rhinariumRadius - snoutHeight)/2);
+      rhinarium.draw();
+    }
     popStyle();
+    pushStyle();
+    noFill();
+    translate(0, rhinariumRadius);
+    curve(-snoutWidth/2, 0, -snoutWidth/2, 0, 0, snoutHeight/2, snoutWidth/2, 0);
+    curve(-snoutWidth/2, 0, 0, snoutHeight/2, snoutWidth/2, 0, snoutWidth/2, 0);
+    popStyle();
+    popMatrix();
   }
 }
 
