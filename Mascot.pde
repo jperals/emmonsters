@@ -18,7 +18,7 @@ class Mascot {
   }
   public void draw() {
     pushMatrix();
-    translate(width/2, height/2 - headPosition/4);
+    translate(width/2, height/2 - headPosition/2);
     fill(fillColor);
     //noFill();
     stroke(strokeColor);
