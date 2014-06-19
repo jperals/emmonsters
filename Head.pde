@@ -1,4 +1,5 @@
 class Head {
+  public RShape shape;
   public PVector[] points;
   color fillColor,
         strokeColor;

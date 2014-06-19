@@ -1,3 +1,4 @@
+import geomerative.*;
 import java.util.Date; // Required to use the Date class further down
 
 color backgroundColor;
@@ -6,6 +7,7 @@ Mascot mascot;
 void setup() {
   size(500, 500);
   backgroundColor = color(192, 192, 192);
+  RG.init( this );
   mascot = new Mascot();
 }
 
@@ -26,4 +28,3 @@ void keyPressed() {
       break;
   }
 }
-
