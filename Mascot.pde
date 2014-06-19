@@ -4,6 +4,7 @@ class Mascot {
                 strokeColor = #555555;
   private Head head;
   private Trunk trunk;
+  private Foot leftFoot, rightFoot;
   private int detail = 10,
               trunkRadius = 100,
               headRadius = 75 + (int)random(-10, 10),
@@ -15,6 +16,9 @@ class Mascot {
     fillColor = color(random(greenComponent, 255), greenComponent, blueComponent);
     head = new Head(headRadius);
     trunk = new Trunk(trunkRadius);
+    rightFoot = new Foot();
+    leftFoot = rightFoot.cloneReversed();
+    //rightFoot = leftFoot.clone().reverseX();
   }
   public void draw() {
     pushMatrix();
@@ -53,14 +57,17 @@ class Mascot {
       }
     }
     endShape();
+    pushMatrix();
+    translate(-60, trunkRadius - 20);
+    leftFoot.draw();
+    popMatrix();
+    pushMatrix();
+    translate(60, trunkRadius - 20);
+    rightFoot.draw();
+    popMatrix();
     translate(0, headPosition);
     head.drawFace();
     popMatrix();
-    /*trunk.draw();
-    pushMatrix();
-    translate(0, headPosition);
-    head.draw();
-    popMatrix();*/
   }
 }
 

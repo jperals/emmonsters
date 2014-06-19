@@ -23,6 +23,7 @@ class Ear {
     }
   }
   public void draw() {
+    pushMatrix();
     beginShape();
     scale(1, (float)earLength/earWidth);
     for(int i = 0; i < detail + 3; i++) {
@@ -31,6 +32,7 @@ class Ear {
       curveVertex(point.x, point.y);
     }
     endShape();
+    popMatrix();
   }
   public Ear reversed() {
     Ear reversedEar = new Ear(detail);
