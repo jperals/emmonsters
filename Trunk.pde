@@ -1,5 +1,5 @@
 class Trunk {
-  public PVector[] points;
+  public RPolygon shape;
   color fillColor,
         strokeColor;
   int detail,
@@ -13,7 +13,7 @@ class Trunk {
     fillColor = #FFFFFF;
     strokeColor = #555555;
     detail = (int)random(5, 15);
-    points = new PVector[detail];
+    shape = new RPolygon();
     float angle = -PI/2,
           angleIncrement = TWO_PI / detail;
     for(int i = 0; i < detail; i++) {
@@ -21,11 +21,12 @@ class Trunk {
       float distanceToCenter = radius*(1 + (noise(i) - 0.5)/5);
       int x = (int)(distanceToCenter*cos(angle)),
           y = (int)(distanceToCenter*sin(angle));
-      points[i] = new PVector(x, y);
+      shape.addPoint(x, y);
       angle += angleIncrement;
     }
   }
   public void draw() {
+    RPoint[] points = shape.getPoints();
     fill(fillColor);
     stroke(strokeColor);
     strokeWeight(strokeWidth);
@@ -33,7 +34,7 @@ class Trunk {
     beginShape();
     for(int i = 0; i < detail + 1; i++) {
       int j = i % detail;
-      PVector point = points[j];
+      RPoint point = points[j];
       curveVertex(point.x, point.y);
     }
     endShape();

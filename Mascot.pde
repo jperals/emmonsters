@@ -32,9 +32,10 @@ class Mascot {
     head.drawEars();
     popMatrix();
     beginShape();
-    for(int i = trunk.points.length/2 - 1; i < trunk.points.length; i++) {
-      int j = i % trunk.points.length;
-      PVector point = trunk.points[j];
+    RPoint[] trunkPoints = trunk.shape.getPoints();
+    for(int i = trunkPoints.length/2 - 1; i < trunkPoints.length; i++) {
+      int j = i % trunkPoints.length;
+      RPoint point = trunkPoints[j];
       curveVertex(point.x, point.y);
       if(drawPoints) {
         ellipse(point.x, point.y, 10, 10);
@@ -48,9 +49,9 @@ class Mascot {
         ellipse(point.x, point.y + headPosition, 10, 10);
       }
     }
-    for(int i = 1; i < min(trunk.points.length/2 + 3, trunk.points.length - 1); i++) {
-      int j = i % trunk.points.length;
-      PVector point = trunk.points[j];
+    for(int i = 1; i < min(trunkPoints.length/2 + 3, trunkPoints.length - 1); i++) {
+      int j = i % trunkPoints.length;
+      RPoint point = trunkPoints[j];
       curveVertex(point.x, point.y);
       if(drawPoints) {
         ellipse(point.x, point.y, 10, 10);
