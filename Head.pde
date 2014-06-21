@@ -1,6 +1,5 @@
 class Head {
-  public RShape shape;
-  public PVector[] points;
+  public RPolygon shape;
   color fillColor,
         strokeColor;
   Ear leftEar, rightEar;
@@ -29,7 +28,7 @@ class Head {
     leftEye = new Eye(eyeRadius);
     rightEye = new Eye(eyeRadius);
     snout = new Snout(snoutRadius);
-    points = new PVector[detail];
+    shape = new RPolygon();
     float angle = PI/2,
           angleIncrement = TWO_PI/detail;
     for(int i = 0; i < detail; i++) {
@@ -37,11 +36,12 @@ class Head {
       float distance = radius*(1 + (noise(i) - 0.5)/5);
       float x = distance*cos(angle),
             y = distance*sin(angle);
-      points[i] = new PVector(x, y);
+      shape.addPoint(x, y);
       angle += angleIncrement;
     }
   }
   public void draw() {
+    RPoint[] points = shape.getPoints();
     fill(fillColor);
     stroke(strokeColor);
     strokeWeight(strokeWidth);
