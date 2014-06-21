@@ -1,4 +1,5 @@
 class Mascot {
+  private Arm leftArm, rightArm;
   private boolean drawPoints = false;
   private color fillColor,
                 strokeColor = #555555;
@@ -10,6 +11,7 @@ class Mascot {
               headRadius = 75 + (int)random(-10, 10),
               headPosition = -(int)random(trunkRadius + headRadius, trunkRadius*2),
               strokeWidth = 4;
+  private RPolygon shape;
   Mascot() {
     int blueComponent = (int)random(127, 255),
         greenComponent = (int)random(blueComponent, 255);
@@ -19,6 +21,9 @@ class Mascot {
     rightFoot = new Foot();
     leftFoot = rightFoot.cloneReversed();
     //rightFoot = leftFoot.clone().reverseX();
+    rightArm = new Arm();
+    leftArm = rightArm.cloneReversed();
+    shape = trunk.shape.union(leftArm.shape).union(rightArm.shape);
   }
   public void draw() {
     pushMatrix();
@@ -58,6 +63,9 @@ class Mascot {
       }
     }
     endShape();
+    //leftArm.draw();
+    //rightArm.draw();
+    shape.draw();
     pushMatrix();
     translate(-60, trunkRadius - 20);
     leftFoot.draw();
