@@ -59,6 +59,7 @@ class Mascot {
       }
     }
     endShape();
+    //shape.draw();
     if(debug) {
       //neck.shape.draw();
       head.shape.draw();

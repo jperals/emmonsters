@@ -14,7 +14,7 @@ class Snout extends BodyPart {
   }
   Snout(int radius) {
     snoutHeight = radius;
-    snoutWidth = (int)(snoutHeight*random(3, 6));
+    snoutWidth = (int)(snoutHeight*random(0.8, 2.5));
     mouth = new Mouth(snoutWidth, snoutHeight/2);
     mouth.moveBy(0, snoutHeight/3);
     rhinariumRadius = (int) (radius * random(0.25, 0.75));

@@ -9,10 +9,13 @@ class Trunk {
     this(100);
   }
   Trunk(int radius) {
+    this(radius, (int)random(5, 15));
+  }
+  Trunk(int radius, int detail) {
     this.radius = radius;
     fillColor = #FFFFFF;
     strokeColor = #555555;
-    detail = (int)random(5, 15);
+    this.detail = detail;
     shape = new RPolygon();
     float angle = -PI/2,
           angleIncrement = TWO_PI / detail;
