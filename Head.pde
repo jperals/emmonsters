@@ -38,6 +38,8 @@ class Head extends BodyPart {
       shape.addPoint(x, y);
       angle += angleIncrement;
     }
+    println(snout.shape.getCenter().x, snout.shape.getCenter().y);
+    shape = shape.union(snout.shape);
   }
   public void draw() {
     RPoint[] points = shape.getPoints();

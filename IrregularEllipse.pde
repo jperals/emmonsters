@@ -17,15 +17,18 @@ class IrregularEllipse {
     float angle = -PI/2,
           angleIncrement = TWO_PI/detail;
     for(int i = 0; i < detail; i++) {
-      float distance = ellipseHeight*(1 + (noise(i) - 0.5)/5);
-      float x = distance*cos(angle),
-            y = distance*sin(angle);
+      float distanceFactor = 1 + (noise(i) - 0.5)/5;
+      float x = distanceFactor*ellipseWidth*cos(angle),
+            y = distanceFactor*ellipseHeight*sin(angle);
       shape.addPoint(new RPoint(x, y));
       angle += angleIncrement;
     }
   }
   public int getNumberOfPoints() {
     return detail;
+  }
+  public RPolygon getShape() {
+    return shape;
   }
   public void draw() {
     drawPartial(0, detail + 3);
@@ -37,7 +40,7 @@ class IrregularEllipse {
     }
     RPoint[] points = shape.getPoints();
     pushMatrix();
-    scale((float)ellipseWidth/ellipseHeight, 1);
+    //scale((float)ellipseWidth/ellipseHeight, 1);
     beginShape();
     for(int i = from; i < to + 3; i++) {
       int j = i % detail;

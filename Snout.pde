@@ -14,7 +14,7 @@ class Snout extends BodyPart {
   }
   Snout(int radius) {
     snoutHeight = radius;
-    snoutWidth = (int)(snoutHeight*random(1, 2));
+    snoutWidth = (int)(snoutHeight*random(3, 6));
     mouth = new Mouth(snoutWidth, snoutHeight/2);
     mouth.moveBy(0, snoutHeight/3);
     rhinariumRadius = (int) (radius * random(0.25, 0.75));
@@ -23,6 +23,7 @@ class Snout extends BodyPart {
     drawContourBottom = drawContourTop && randomBoolean();
     drawRhinarium = randomBoolean(0.75);
     outerSnout = new IrregularEllipse(snoutWidth, snoutHeight);
+    shape = outerSnout.getShape();
     rhinarium = new IrregularCircle(rhinariumRadius, (int)random(3, 8));    
   }
   public void draw() {

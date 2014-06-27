@@ -17,7 +17,7 @@ class Mascot {
         greenComponent = (int)random(blueComponent, 255);
     fillColor = color(random(greenComponent, 255), greenComponent, blueComponent);
     head = new Head(headRadius);
-    head.shape.translate(0, headPosition);
+    head.moveBy(0, headPosition);
     trunk = new Trunk(trunkRadius);
     RPoint[] trunkPoints = trunk.shape.getPoints(),
              headPoints = head.shape.getPoints();
