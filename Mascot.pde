@@ -1,9 +1,9 @@
 class Mascot {
   private Arm leftArm, rightArm;
-  private boolean drawPoints = false;
   private color fillColor,
                 strokeColor = #555555;
   private Head head;
+  private Neck neck;
   private Trunk trunk;
   private Foot leftFoot, rightFoot;
   private int detail = 10,
@@ -17,13 +17,25 @@ class Mascot {
         greenComponent = (int)random(blueComponent, 255);
     fillColor = color(random(greenComponent, 255), greenComponent, blueComponent);
     head = new Head(headRadius);
+    head.shape.translate(0, headPosition);
     trunk = new Trunk(trunkRadius);
+    RPoint[] trunkPoints = trunk.shape.getPoints(),
+             headPoints = head.shape.getPoints();
+    RPoint[] neckPoints = new RPoint[8];
+    neckPoints[0] = trunkPoints[1];
+    neckPoints[1] = trunkPoints[trunkPoints.length - 1];
+    neckPoints[2] = new RPoint(headPoints[1].x, headPoints[1].y - 10);
+    neckPoints[3] = new RPoint(headPoints[headPoints.length - 1].x, headPoints[headPoints.length - 1].y - 10);
+    neck = new Neck(neckPoints);
     rightFoot = new Foot();
     leftFoot = rightFoot.cloneReversed();
     //rightFoot = leftFoot.clone().reverseX();
     rightArm = new Arm();
+    rightArm.shape.rotate(-PI/3);
     leftArm = rightArm.cloneReversed();
-    shape = trunk.shape.union(leftArm.shape).union(rightArm.shape);
+    rightArm.translate(40, -40);
+    leftArm.translate(-40, -40);
+    shape = trunk.shape.union(neck.shape).union(head.shape);
   }
   public void draw() {
     pushMatrix();
@@ -36,37 +48,23 @@ class Mascot {
     translate(0, headPosition);
     head.drawEars();
     popMatrix();
+    RPoint[] points = shape.getPoints();
     beginShape();
-    RPoint[] trunkPoints = trunk.shape.getPoints(),
-             headPoints = head.shape.getPoints();
-    for(int i = trunkPoints.length/2 - 1; i < trunkPoints.length; i++) {
-      int j = i % trunkPoints.length;
-      RPoint point = trunkPoints[j];
+    for(int i = 0; i < points.length + 3; i++) {
+      int j = i % points.length;
+      RPoint point = points[j];
       curveVertex(point.x, point.y);
-      if(drawPoints) {
-        ellipse(point.x, point.y, 10, 10);
-      }
-    }
-    for(int i = 1; i < headPoints.length; i++) {
-      int j = i % headPoints.length;
-      RPoint point = headPoints[j];
-      curveVertex(point.x, point.y + headPosition);
-      if(drawPoints) {
-        ellipse(point.x, point.y + headPosition, 10, 10);
-      }
-    }
-    for(int i = 1; i < min(trunkPoints.length/2 + 3, trunkPoints.length - 1); i++) {
-      int j = i % trunkPoints.length;
-      RPoint point = trunkPoints[j];
-      curveVertex(point.x, point.y);
-      if(drawPoints) {
-        ellipse(point.x, point.y, 10, 10);
+      if(debug) {
+        ellipse(point.x, point.y, 20, 20);
       }
     }
     endShape();
-    //leftArm.draw();
-    //rightArm.draw();
-    shape.draw();
+    if(debug) {
+      //neck.shape.draw();
+      head.shape.draw();
+    }
+    rightArm.draw();
+    leftArm.draw();
     pushMatrix();
     translate(-60, trunkRadius - 20);
     leftFoot.draw();
