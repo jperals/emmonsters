@@ -1,11 +1,13 @@
 import geomerative.*;
 import java.util.Date; // Required to use the Date class further down
 
+boolean debug = false;
 color backgroundColor;
 Mascot mascot;
 
 void setup() {
   size(500, 500);
+  smooth();
   backgroundColor = color(192, 192, 192);
   RG.init( this );
   mascot = new Mascot();
@@ -18,6 +20,9 @@ void draw() {
 
 void keyPressed() {
   switch(key) {
+    case 'd':
+      debug = !debug;
+      break;
     case 'r':
       mascot = new Mascot();
       break;
