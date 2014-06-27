@@ -4,12 +4,12 @@ class Ear {
   private int detail,
               earWidth;
   Ear() {
-    this((int)random(3, 6));
+    this((int)random(3, 10));
   }
   Ear(int detail) {
     this.detail = detail;
     earWidth = (int)random(25, 45);
-    earLength = (int)((float)earWidth * random(1,3));
+    earLength = (int)((float)earWidth * random(0.75,2.5));
     points = new PVector[detail];
     float angle = PI/2 + PI/3,
           angleIncrement = TWO_PI/detail;
