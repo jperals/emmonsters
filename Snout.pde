@@ -1,4 +1,5 @@
-class Snout {
+class Snout extends BodyPart {
+  private Mouth mouth;
   private boolean hasDifferentColor,
                   drawContourTop,
                   drawContourBottom,
@@ -14,6 +15,8 @@ class Snout {
   Snout(int radius) {
     snoutHeight = radius;
     snoutWidth = (int)(snoutHeight*random(1, 2));
+    mouth = new Mouth(snoutWidth, snoutHeight/2);
+    mouth.moveBy(0, snoutHeight/3);
     rhinariumRadius = (int) (radius * random(0.25, 0.75));
     hasDifferentColor = randomBoolean();
     drawContourTop = randomBoolean(0.75);
@@ -47,13 +50,13 @@ class Snout {
       rhinarium.draw();
     }
     popStyle();
-    pushStyle();
-    noFill();
-    translate(0, rhinariumRadius);
-    curve(-snoutWidth/2, 0, -snoutWidth/2, 0, 0, snoutHeight/2, snoutWidth/2, 0);
-    curve(-snoutWidth/2, 0, 0, snoutHeight/2, snoutWidth/2, 0, snoutWidth/2, 0);
-    popStyle();
     popMatrix();
+    mouth.draw();
+  }
+  public void moveBy(float x, float y) {
+    outerSnout.shape.translate(x, y);
+    rhinarium.shape.translate(x, y);
+    mouth.moveBy(x, y);
   }
 }
 

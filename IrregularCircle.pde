@@ -1,6 +1,7 @@
 class IrregularCircle {
+  public RPolygon shape;
   private int detail, 
-  radius;
+          radius;
   private PVector[] points;
   IrregularCircle() {
     this(30, (int)random(5, 8));
@@ -11,6 +12,7 @@ class IrregularCircle {
   IrregularCircle(int radius, int detail) {
     this.radius = radius;
     this.detail = detail;
+    shape = new RPolygon();
     float angle = PI/2, 
     angleIncrement = TWO_PI/detail;
     points = new PVector[detail];
@@ -19,7 +21,7 @@ class IrregularCircle {
       float distance = radius*(1 + (noise(i) - 0.5)/5);
       float x = distance*cos(angle), 
       y = distance*sin(angle);
-      points[i] = new PVector(x, y);
+      shape.addPoint(x, y);
       angle += angleIncrement;
     }
   }
@@ -27,6 +29,7 @@ class IrregularCircle {
     drawPartial(0, detail);
   }
   private void drawPartial(int from, int to) {
+    RPoint[] points = shape.getPoints();
     beginShape();
     for (int i = from; i < to + 3; i++) {
       int j = i % detail;

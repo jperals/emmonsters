@@ -1,5 +1,4 @@
-class Head {
-  public RPolygon shape;
+class Head extends BodyPart {
   color fillColor,
         strokeColor;
   Ear leftEar, rightEar;
@@ -28,7 +27,7 @@ class Head {
     leftEye = new Eye(eyeRadius);
     rightEye = new Eye(eyeRadius);
     snout = new Snout(snoutRadius);
-    shape = new RPolygon();
+    snout.moveBy(0, eyeSeparation/2 + snoutRadius/2);
     float angle = PI/2,
           angleIncrement = TWO_PI/detail;
     for(int i = 0; i < detail; i++) {
@@ -77,10 +76,7 @@ class Head {
     translate(eyeSeparation, -radius/10);
     rightEye.draw();
     popMatrix();
-    pushMatrix();
-    translate(0, eyeSeparation/2 + snoutRadius/2);
     snout.draw();
-    popMatrix();
   }
 }
 
