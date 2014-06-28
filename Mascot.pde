@@ -9,7 +9,7 @@ class Mascot {
   private int detail = 10,
               trunkRadius = 100,
               headRadius = 75 + (int)random(-10, 10),
-              headPosition = -(int)random(trunkRadius + headRadius, trunkRadius*2),
+              headPosition = -(int)random(trunkRadius*0.7 + headRadius, trunkRadius*2),
               strokeWidth = 4;
   private RPolygon shape;
   Mascot() {
@@ -18,14 +18,16 @@ class Mascot {
     fillColor = color(random(greenComponent, 255), greenComponent, blueComponent);
     head = new Head(headRadius);
     head.moveBy(0, headPosition);
-    trunk = new Trunk(trunkRadius);
+    trunk = new Trunk(trunkRadius, 100);
     RPoint[] trunkPoints = trunk.shape.getPoints(),
              headPoints = head.shape.getPoints();
     RPoint[] neckPoints = new RPoint[8];
-    neckPoints[0] = trunkPoints[1];
-    neckPoints[1] = trunkPoints[trunkPoints.length - 1];
-    neckPoints[2] = new RPoint(headPoints[1].x, headPoints[1].y - 10);
-    neckPoints[3] = new RPoint(headPoints[headPoints.length - 1].x, headPoints[headPoints.length - 1].y - 10);
+    float neckWidthUpper = random(0.75, 1.9)*headRadius;
+    float neckWidthLower = max(random(0.3, 1.9)*trunkRadius, neckWidthUpper);
+    neckPoints[0] = new RPoint(- neckWidthUpper/2, headPosition);
+    neckPoints[1] = new RPoint(neckWidthUpper/2, headPosition);
+    neckPoints[2] = new RPoint(neckWidthLower/2, 0);
+    neckPoints[3] = new RPoint(- neckWidthLower/2, 0);
     neck = new Neck(neckPoints);
     rightFoot = new Foot();
     leftFoot = rightFoot.cloneReversed();
@@ -48,7 +50,7 @@ class Mascot {
     translate(0, headPosition);
     head.drawEars();
     popMatrix();
-    RPoint[] points = shape.getPoints();
+    /*RPoint[] points = shape.getPoints();
     beginShape();
     for(int i = 0; i < points.length + 3; i++) {
       int j = i % points.length;
@@ -58,8 +60,8 @@ class Mascot {
         ellipse(point.x, point.y, 20, 20);
       }
     }
-    endShape();
-    //shape.draw();
+    endShape();*/
+    shape.draw();
     if(debug) {
       //neck.shape.draw();
       head.shape.draw();
@@ -74,8 +76,11 @@ class Mascot {
     translate(60, trunkRadius - 20);
     rightFoot.draw();
     popMatrix();
+    pushMatrix();
     translate(0, headPosition);
     head.drawFace();
+    popMatrix();
+    //neck.shape.draw();
     popMatrix();
   }
 }

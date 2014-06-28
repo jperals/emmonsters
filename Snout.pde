@@ -14,7 +14,7 @@ class Snout extends BodyPart {
   }
   Snout(int radius) {
     snoutHeight = radius;
-    snoutWidth = (int)(snoutHeight*random(0.8, 2.5));
+    snoutWidth = (int)(snoutHeight*random(0.8, 2.25));
     mouth = new Mouth(snoutWidth, snoutHeight/2);
     mouth.moveBy(0, snoutHeight/3);
     rhinariumRadius = (int) (radius * random(0.25, 0.75));
@@ -30,6 +30,9 @@ class Snout extends BodyPart {
     pushStyle();
     if(hasDifferentColor) {
       fill(snoutColor);
+    }
+    else {
+      noFill();
     }
     pushStyle();
     if(!drawContourBottom) {

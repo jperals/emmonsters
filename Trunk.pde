@@ -21,7 +21,7 @@ class Trunk {
           angleIncrement = TWO_PI / detail;
     for(int i = 0; i < detail; i++) {
       //float distanceToCenter = radius;
-      float distanceToCenter = radius*(1 + (noise(i) - 0.5)/5);
+      float distanceToCenter = radius*(1 + (noise(1) - 0.5)/5);
       int x = (int)(distanceToCenter*cos(angle)),
           y = (int)(distanceToCenter*sin(angle));
       shape.addPoint(x, y);
