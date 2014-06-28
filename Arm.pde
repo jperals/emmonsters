@@ -9,7 +9,7 @@ public class Arm implements Cloneable {
   Arm(int detail) {
     this.detail = detail;
     armWidth = (int)random(12, 30);
-    armLength = (int)random(50, 70);
+    armLength = (int)random(60, 70);
     shape = new RPolygon();
     float angleIncrement = TWO_PI*0.9/detail;
     float angle = angleIncrement;

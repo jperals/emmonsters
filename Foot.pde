@@ -1,4 +1,4 @@
-public class Foot implements Cloneable {
+public class Foot extends BodyPart implements Cloneable {
   public PVector[] points;
   public int footLength;
   private int detail,
@@ -23,6 +23,8 @@ public class Foot implements Cloneable {
     }
   }
   public void draw() {
+    pushStyle();
+    fill(fillColor);
     pushMatrix();
     beginShape();
     scale(1, (float)footLength/footWidth);
@@ -33,6 +35,7 @@ public class Foot implements Cloneable {
     }
     endShape();
     popMatrix();
+    popStyle();
   }
   public Foot cloneReversed() {
     Foot reversedFoot = new Foot(detail);
@@ -40,6 +43,7 @@ public class Foot implements Cloneable {
       reversedFoot.points[i].x = - this.points[i].x;
     }
     reversedFoot.footLength = this.footLength;
+    reversedFoot.fillColor = this.fillColor;
     return reversedFoot;
   }
   public void reverseX() {
