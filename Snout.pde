@@ -1,7 +1,6 @@
 class Snout extends BodyPart {
   private Mouth mouth;
-  private boolean hasDifferentColor,
-                  drawContourTop,
+  private boolean drawContourTop,
                   drawContourBottom,
                   drawRhinarium;
   private color snoutColor = #BB9944,
@@ -18,7 +17,6 @@ class Snout extends BodyPart {
     mouth = new Mouth(snoutWidth, snoutHeight/2);
     mouth.moveBy(0, snoutHeight/3);
     rhinariumRadius = (int) (radius * random(0.25, 0.75));
-    hasDifferentColor = randomBoolean();
     drawContourTop = randomBoolean(0.75);
     drawContourBottom = drawContourTop && randomBoolean();
     drawRhinarium = randomBoolean(0.75);
@@ -28,12 +26,7 @@ class Snout extends BodyPart {
   }
   public void draw() {
     pushStyle();
-    if(hasDifferentColor) {
-      fill(snoutColor);
-    }
-    else {
-      noFill();
-    }
+    fill(fillColor);
     pushStyle();
     if(!drawContourBottom) {
       noStroke();
