@@ -1,4 +1,5 @@
 class Snout extends BodyPart {
+  public boolean overflowsHead;
   private Mouth mouth;
   private boolean drawContourTop,
                   drawContourBottom,
@@ -13,7 +14,7 @@ class Snout extends BodyPart {
   }
   Snout(int radius) {
     snoutHeight = radius;
-    snoutWidth = (int)(snoutHeight*random(0.8, 2.25));
+    snoutWidth = (int)(snoutHeight*random(0.8, 2));
     mouth = new Mouth(snoutWidth, snoutHeight/2);
     mouth.moveBy(0, snoutHeight/3);
     rhinariumRadius = (int) (radius * random(0.25, 0.75));
@@ -26,10 +27,15 @@ class Snout extends BodyPart {
   }
   public void draw() {
     pushStyle();
-    fill(fillColor);
+    //fill(fillColor);
+    noFill();
     pushStyle();
     if(!drawContourBottom) {
+      noFill();
       noStroke();
+    }
+    else {
+      fill(fillColor);
     }
     outerSnout.draw();
     popStyle();
@@ -37,7 +43,7 @@ class Snout extends BodyPart {
       int outerSnoutDetail = outerSnout.getNumberOfPoints();
       float angleBetweenPoints = (2*PI) / outerSnoutDetail;
       int pointsToMoveBack = outerSnoutDetail/2;
-      outerSnout.drawPartial(-pointsToMoveBack, (int)(outerSnoutDetail/2) - pointsToMoveBack);
+      //outerSnout.drawPartial(-pointsToMoveBack, (int)(outerSnoutDetail/2) - pointsToMoveBack);
     }
     pushMatrix();
     if(drawRhinarium) {

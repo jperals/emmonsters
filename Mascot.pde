@@ -1,4 +1,4 @@
-class Mascot {
+class Mascot extends BodyPart {
   private Arm leftArm, rightArm;
   private color fillColor,
                 strokeColor = #555555;
@@ -17,6 +17,7 @@ class Mascot {
         greenComponent = (int)random(blueComponent, 255);
     fillColor = color(random(greenComponent, 255), greenComponent, blueComponent);
     head = new Head(headRadius);
+    head.setColor(fillColor);
     head.moveBy(0, headPosition);
     trunk = new Trunk(trunkRadius, 100);
     RPoint[] trunkPoints = trunk.shape.getPoints(),

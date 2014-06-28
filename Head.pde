@@ -1,6 +1,5 @@
 class Head extends BodyPart {
-  color fillColor,
-        strokeColor;
+  color strokeColor;
   Ear leftEar, rightEar;
   Eye leftEye, rightEye;
   private int detail,
@@ -16,7 +15,6 @@ class Head extends BodyPart {
   }
   Head(int radius) {
     this.radius = radius;
-    fillColor = #FFFFFF;
     strokeColor = #555555;
     detail = (int)random(60, 150);
     earDetail = (int)random(3, 6);
@@ -27,6 +25,7 @@ class Head extends BodyPart {
     leftEye = new Eye(eyeRadius);
     rightEye = new Eye(eyeRadius);
     snout = new Snout(snoutRadius);
+    snout.fillColor = fillColor;
     snout.moveBy(0, eyeSeparation/2 + snoutRadius/2);
     float angle = PI/2,
           angleIncrement = TWO_PI/detail;
@@ -39,7 +38,18 @@ class Head extends BodyPart {
       angle += angleIncrement;
     }
     //println(snout.shape.getCenter().x, snout.shape.getCenter().y);
+    //boolean overflowsHead = !(shape.toShape().contains(snout.shape.getPoints()));
+    boolean snoutOverflowsHead = false;
+    RPoint[] points = snout.shape.getPoints();
+    int i = 0;
+    while(i < points.length && !snoutOverflowsHead) {
+      RPoint point = points[i];
+      snoutOverflowsHead = sqrt(sq(point.x) + sq(point.y)) > radius;
+      i++;
+    }
+    snout.overflowsHead = snoutOverflowsHead;
     shape = shape.union(snout.shape);
+    this.addChild(snout);
   }
   public void draw() {
     RPoint[] points = shape.getPoints();
@@ -70,6 +80,7 @@ class Head extends BodyPart {
     popMatrix();
   }
   public void drawFace() {
+    snout.draw();
     pushMatrix();
     translate(-eyeSeparation, -radius/10);
     leftEye.draw();
@@ -78,7 +89,6 @@ class Head extends BodyPart {
     translate(eyeSeparation, -radius/10);
     rightEye.draw();
     popMatrix();
-    snout.draw();
   }
 }
 
