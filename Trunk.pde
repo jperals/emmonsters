@@ -1,5 +1,4 @@
-class Trunk {
-  public RPolygon shape;
+class Trunk extends BodyPart {
   color fillColor,
         strokeColor;
   int detail,
@@ -16,7 +15,7 @@ class Trunk {
     fillColor = #FFFFFF;
     strokeColor = #555555;
     this.detail = detail;
-    RPoint[] vertices = new RPoint[detail];
+    vertices = new RPoint[detail];
     float angle = -PI/2,
           angleIncrement = TWO_PI / detail;
     for(int i = 0; i < detail; i++) {
@@ -27,9 +26,9 @@ class Trunk {
       vertices[i] = new RPoint(x, y);
       angle += angleIncrement;
     }
-    shape = toBezier(vertices).toPolygon();
+    shape = toBezier(vertices);
   }
-  public void draw() {
+/*  public void draw() {
     RPoint[] points = shape.getPoints();
     fill(fillColor);
     stroke(strokeColor);
@@ -42,6 +41,6 @@ class Trunk {
       curveVertex(point.x, point.y);
     }
     endShape();
-  }
+  }*/
 }
 

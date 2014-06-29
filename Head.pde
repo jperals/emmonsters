@@ -9,7 +9,6 @@ class Head extends BodyPart {
               radius,
               snoutRadius,
               strokeWidth = 5;
-  private RShape bezierShape;
   private Snout snout;
   Head() {
     this(95);
@@ -30,7 +29,7 @@ class Head extends BodyPart {
     snout.moveBy(0, eyeSeparation/2 + snoutRadius/2);
     float angle = PI/2,
           angleIncrement = TWO_PI/detail;
-    RPoint[] vertices = new RPoint[detail];
+    vertices = new RPoint[detail];
     for(int i = 0; i < detail; i++) {
       //float distance = radius;
       float distance = radius*(1 + (noise(i) - 0.5)/5);
@@ -39,15 +38,14 @@ class Head extends BodyPart {
       vertices[i] = new RPoint(x, y);
       angle += angleIncrement;
     }
-    bezierShape = toBezier(vertices);
-    shape = bezierShape.toPolygon();
+    shape = toBezier(vertices);
     //println(snout.shape.getCenter().x, snout.shape.getCenter().y);
     //boolean overflowsHead = !(shape.toShape().contains(snout.shape.getPoints()));
     boolean snoutOverflowsHead = false;
-    RPoint[] points = snout.shape.getPoints();
+    //RPoint[] points = snout.shape.getPoints();
     int i = 0;
-    while(i < points.length && !snoutOverflowsHead) {
-      RPoint point = points[i];
+    while(i < vertices.length && !snoutOverflowsHead) {
+      RPoint point = vertices[i];
       snoutOverflowsHead = sqrt(sq(point.x) + sq(point.y)) > radius;
       i++;
     }

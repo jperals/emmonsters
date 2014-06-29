@@ -11,7 +11,6 @@ class Mascot extends BodyPart {
               headRadius = 95 + (int)random(-10, 10),
               headPosition = -(int)random(trunkRadius*0.7 + headRadius, trunkRadius*2),
               strokeWidth = 4;
-  private RPolygon shape;
   Mascot() {
     int blueComponent = (int)random(127, 255),
         greenComponent = (int)random(blueComponent, 255);
@@ -35,10 +34,13 @@ class Mascot extends BodyPart {
     leftFoot = rightFoot.cloneReversed();
     //rightFoot = leftFoot.clone().reverseX();
     rightArm = new Arm();
-    rightArm.shape.rotate(-PI/3);
     leftArm = rightArm.cloneReversed();
+    leftArm.shape.rotate(PI/3);
+    rightArm.shape.rotate(-PI/3);
     rightArm.translate(40, -40);
     leftArm.translate(-40, -40);
+    leftArm.setColor(fillColor);
+    rightArm.setColor(fillColor);
     shape = trunk.shape.union(neck.shape).union(head.shape);
   }
   public void draw() {

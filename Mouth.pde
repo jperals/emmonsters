@@ -1,20 +1,22 @@
 class Mouth extends BodyPart {
   private float mouthWidth,
                 mouthHeight;
+  private RPolygon polygon;
   Mouth(float mouthWidth, float mouthHeight) {
     this.mouthWidth = mouthWidth;
     this.mouthHeight = mouthHeight;
-    shape.addPoint(- mouthWidth/2, 0);
-    shape.addPoint(0, mouthHeight);
-    shape.addPoint(mouthWidth/2, 0);
+    polygon = new RPolygon();
+    polygon.addPoint(- mouthWidth/2, 0);
+    polygon.addPoint(0, mouthHeight);
+    polygon.addPoint(mouthWidth/2, 0);
   }
   public void draw() {
-    RPoint center = this.shape.getCenter();
-    //println(center.x);
-    //println(center.y);
-    RPoint[] points = shape.getPoints();
+    RPoint[] points = polygon.getPoints();
     curve(points[0].x, points[0].y, points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y);
     curve(points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y, points[2].x, points[2].y);
   }
+  public void moveBy(float x, float y) {
+    polygon.translate(x, y);
+  } 
 }
 

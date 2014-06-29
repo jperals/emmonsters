@@ -1,5 +1,4 @@
-public class Arm implements Cloneable {
-  public RPolygon shape;
+public class Arm extends BodyPart implements Cloneable {
   public int armLength;
   private int detail,
               armWidth;
@@ -10,10 +9,10 @@ public class Arm implements Cloneable {
     this.detail = detail;
     armWidth = (int)random(12, 30);
     armLength = (int)random(60, 70);
-    shape = new RPolygon();
     float angleIncrement = TWO_PI*0.9/detail;
     float angle = angleIncrement;
     //RPoint originalPoint = new RPoint(-armWidth*cos(angle), - armLength*sin(angle));
+    vertices = new RPoint[detail];
     RPoint originalPoint = new RPoint(0, 0);
     for(int i = 0; i < detail; i++) {
       //float distance = radius;
@@ -22,13 +21,14 @@ public class Arm implements Cloneable {
             y = originalPoint.y + distance*sin(angle);
       PVector point = new PVector(x, y);
       //point.rotate(-PI/3);
-      shape.addPoint(point.x, point.y);
+      vertices[i] = new RPoint(point.x, point.y);
       angle += angleIncrement;
     }
+    shape = toBezier(vertices, 1, detail - 2);
   }
-  public void draw() {
+  /*public void draw() {
     pushStyle();
-    //fill(255, 255, 220);
+    fill(fillColor);
     RPoint[] points = shape.getPoints();
     beginShape();
     for(int i = 0; i < detail; i++) {
@@ -38,26 +38,26 @@ public class Arm implements Cloneable {
     }
     endShape();
     popStyle();
-  }
+  }*/
   public Arm cloneReversed() {
     Arm reversedArm = new Arm(detail);
-    reversedArm.shape = new RPolygon();
-    RPoint[] points = shape.getPoints();
+    RPoint[] verticesInverted = new RPoint[detail];
     for(int i = 0; i < detail; i++) {
-      reversedArm.shape.addPoint(- points[i].x, points[i].y);
+      verticesInverted[i] = new RPoint(- vertices[i].x, vertices[i].y);
     }
     reversedArm.armLength = this.armLength;
+    reversedArm.shape = toBezier(verticesInverted, 1, detail - 2);
     return reversedArm;
   }
   public void translate(float x, float y) {
     shape.translate(x, y);
   }
   public void reverseX() {
-    RPoint[] points = shape.getPoints();
-    shape = new RPolygon();
+    RPoint[] verticesInverted = new RPoint[detail];
     for(int i = 0; i < detail; i++) {
-      shape.addPoint(- points[i].x, points[i].y);
+      verticesInverted[i] = new RPoint(- vertices[i].x, vertices[i].y);
     }
+    shape = toBezier(verticesInverted);
   }
   public Object clone() throws CloneNotSupportedException {  
       return super.clone();

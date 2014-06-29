@@ -2,7 +2,7 @@ class IrregularEllipse {
   private int detail,
               ellipseWidth,
               ellipseHeight;
-  private RPolygon shape;
+  private RShape shape;
   IrregularEllipse() {
     this(30, 30, (int)random(5, 8));
   }
@@ -13,21 +13,22 @@ class IrregularEllipse {
     this.ellipseWidth = ellipseWidth;
     this.ellipseHeight = ellipseHeight;
     this.detail = detail;
-    shape = new RPolygon();
+    RPoint[] vertices = new RPoint[detail];
     float angle = -PI/2,
           angleIncrement = TWO_PI/detail;
     for(int i = 0; i < detail; i++) {
       float distanceFactor = 1 + (noise(1) - 0.5)/5;
       float x = distanceFactor*ellipseWidth*cos(angle),
             y = distanceFactor*ellipseHeight*sin(angle);
-      shape.addPoint(new RPoint(x, y));
+      vertices[i] = new RPoint(x, y);
       angle += angleIncrement;
     }
+    shape = toBezier(vertices);
   }
   public int getNumberOfPoints() {
     return detail;
   }
-  public RPolygon getShape() {
+  public RShape getShape() {
     return shape;
   }
   public void draw() {

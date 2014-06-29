@@ -1,9 +1,10 @@
 class BodyPart {
   public color fillColor;
-  public RPolygon shape;
+  public RShape shape;
+  public RPoint[] vertices;
   private ArrayList<BodyPart> childParts;
   BodyPart() {
-    shape = new RPolygon();
+    shape = new RShape();
     childParts = new ArrayList<BodyPart>();
     int blueComponent = (int)random(127, 255),
         greenComponent = (int)random(blueComponent, 255);
