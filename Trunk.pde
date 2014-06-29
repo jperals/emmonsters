@@ -8,7 +8,7 @@ class Trunk extends BodyPart {
     this(100);
   }
   Trunk(int radius) {
-    this(radius, (int)random(5, 15));
+    this(radius, (int)random(5, 10));
   }
   Trunk(int radius, int detail) {
     this.radius = radius;

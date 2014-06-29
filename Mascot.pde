@@ -7,9 +7,9 @@ class Mascot extends BodyPart {
   private Trunk trunk;
   private Foot leftFoot, rightFoot;
   private int detail = 10,
-              trunkRadius = 100,
+              trunkRadius = 120,
               headRadius = 95 + (int)random(-10, 10),
-              headPosition = -(int)random(trunkRadius*0.7 + headRadius, trunkRadius*2),
+              headPosition = -(int)random(trunkRadius*0.5 + headRadius, trunkRadius*1.5),
               strokeWidth = 4;
   Mascot() {
     int blueComponent = (int)random(127, 255),
@@ -18,13 +18,14 @@ class Mascot extends BodyPart {
     head = new Head(headRadius);
     head.setColor(fillColor);
     head.moveBy(0, headPosition);
-    trunk = new Trunk(trunkRadius, 100);
+    trunk = new Trunk(trunkRadius);
     RPoint[] trunkPoints = trunk.shape.getPoints(),
              headPoints = head.shape.getPoints();
     RPoint[] neckPoints = new RPoint[8];
     RPoint[] headBoundingBox = head.shape.getBoundsPoints();
+    RPoint[] trunkBoundingBox = trunk.shape.getBoundsPoints();
     float neckWidthUpper = random(0.65, 0.95)*(headBoundingBox[1].x - headBoundingBox[0].x);
-    float neckWidthLower = max(random(0.3, 1.9)*trunkRadius, neckWidthUpper);
+    float neckWidthLower = max(random(0.65, 0.95)*(trunkBoundingBox[1].x - trunkBoundingBox[0].x), neckWidthUpper);
     neckPoints[0] = new RPoint(- neckWidthUpper/2, headPosition);
     neckPoints[1] = new RPoint(neckWidthUpper/2, headPosition);
     neckPoints[2] = new RPoint(neckWidthLower/2, 0);
