@@ -3,7 +3,8 @@ class Snout extends BodyPart {
   private Mouth mouth;
   private boolean drawContourTop,
                   drawContourBottom,
-                  drawRhinarium;
+                  drawRhinarium,
+                  waved;
   private color snoutColor = #BB9944,
                 rhinariumColor = #331100;
   private int snoutWidth, snoutHeight, rhinariumRadius;
@@ -21,6 +22,7 @@ class Snout extends BodyPart {
     drawContourTop = randomBoolean(0.75);
     drawContourBottom = drawContourTop && randomBoolean();
     drawRhinarium = randomBoolean(0.75);
+    waved = randomBoolean(0.4);
     outerSnout = new IrregularEllipse(snoutWidth, snoutHeight);
     shape = outerSnout.getShape();
     rhinarium = new IrregularCircle(rhinariumRadius, (int)random(3, 8));    
@@ -47,6 +49,14 @@ class Snout extends BodyPart {
     }
     pushMatrix();
     if(drawRhinarium) {
+      float verticalDistance = snoutHeight/2 - rhinariumRadius;
+      if(waved && verticalDistance > 5) {
+        RPoint[] points = new RPoint[3];
+        points[0] = new RPoint(-snoutWidth/3, verticalDistance/2 + 3);
+        points[1] = new RPoint(0, verticalDistance/2);
+        points[2] = new RPoint(snoutWidth/3, verticalDistance/2 + 3);
+        drawCurve(points);
+      }
       fill(rhinariumColor);
       noStroke();
       translate(0, (rhinariumRadius - snoutHeight)/2);
