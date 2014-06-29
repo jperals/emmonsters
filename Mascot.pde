@@ -12,9 +12,7 @@ class Mascot extends BodyPart {
               headPosition = -(int)random(trunkRadius*0.5 + headRadius, trunkRadius*1.5),
               strokeWidth = 4;
   Mascot() {
-    int blueComponent = (int)random(127, 255),
-        greenComponent = (int)random(blueComponent, 255);
-    fillColor = color(random(greenComponent, 255), greenComponent, blueComponent);
+    fillColor = getNewColor();
     head = new Head(headRadius);
     head.setColor(fillColor);
     head.moveBy(0, headPosition);
@@ -33,7 +31,14 @@ class Mascot extends BodyPart {
     neck = new Neck(neckPoints);
     rightFoot = new Foot();
     leftFoot = rightFoot.cloneReversed();
+    rightFoot.shape.rotate(PI*5/3);
+    leftFoot.shape.rotate(-PI*5/3);
+    leftFoot.moveBy(-80, trunkRadius - 50);
+    rightFoot.moveBy(80, trunkRadius - 50);
     //rightFoot = leftFoot.clone().reverseX();
+    color feetColor = getNewColor();
+    leftFoot.setColor(feetColor);
+    rightFoot.setColor(feetColor);
     rightArm = new Arm();
     leftArm = rightArm.cloneReversed();
     leftArm.shape.rotate(PI/3);
@@ -73,14 +78,8 @@ class Mascot extends BodyPart {
     }
     rightArm.draw();
     leftArm.draw();
-    pushMatrix();
-    translate(-60, trunkRadius - 20);
     leftFoot.draw();
-    popMatrix();
-    pushMatrix();
-    translate(60, trunkRadius - 20);
     rightFoot.draw();
-    popMatrix();
     pushMatrix();
     translate(0, headPosition);
     head.drawFace();

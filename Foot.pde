@@ -1,57 +1,54 @@
 public class Foot extends BodyPart implements Cloneable {
-  public PVector[] points;
   public int footLength;
   private int detail,
               footWidth;
   Foot() {
-    this((int)random(4, 6));
+    this((int)random(9, 12));
   }
   Foot(int detail) {
     this.detail = detail;
-    footWidth = (int)random(35, 45);
-    footLength = (int)((float)footWidth * random(1.5, 2));
-    points = new PVector[detail];
-    float angle = PI/2 + PI/3,
-          angleIncrement = TWO_PI/detail;
+    footWidth = (int)random(35, 40);
+    footLength = (int)random(50, 70);
+    float angleIncrement = TWO_PI/detail;
+    float angle = angleIncrement;
+    //RPoint originalPoint = new RPoint(-footWidth*cos(angle), - footLength*sin(angle));
+    vertices = new RPoint[detail];
+    RPoint originalPoint = new RPoint(0, 0);
+    //float coefficient = random(0.5);
     for(int i = 0; i < detail; i++) {
-      //float distance = radius;
-      float distance = footWidth*(1 + (noise(i) - 0.5)/5);
-      float x = distance*cos(angle),
-            y = distance*sin(angle);
-      points[i] = new PVector(x, y);
+      float distance = footWidth*(1 + (noise(i) - 0.5)/5);//*(1 + coefficient*sin(PI/2 + angle));
+      float x = originalPoint.x + distance*((float)footLength/footWidth)*cos(angle),
+            y = originalPoint.y + distance*sin(angle);
+      if(x > 0) {
+        y += random(0.5, 1)*y*cos(angle);
+      }
+      PVector point = new PVector(x, y);
+      vertices[i] = new RPoint(point.x, point.y);
       angle += angleIncrement;
     }
-  }
-  public void draw() {
-    pushStyle();
-    fill(fillColor);
-    pushMatrix();
-    beginShape();
-    scale(1, (float)footLength/footWidth);
-    for(int i = 0; i < detail + 3; i++) {
-      int j = i % detail;
-      PVector point = points[j];
-      curveVertex(point.x, point.y);
-    }
-    endShape();
-    popMatrix();
-    popStyle();
+    shape = toBezier(vertices);
   }
   public Foot cloneReversed() {
     Foot reversedFoot = new Foot(detail);
+    RPoint[] verticesInverted = new RPoint[detail];
     for(int i = 0; i < detail; i++) {
-      reversedFoot.points[i].x = - this.points[i].x;
+      verticesInverted[i] = new RPoint(- vertices[i].x, vertices[i].y);
     }
     reversedFoot.footLength = this.footLength;
-    reversedFoot.fillColor = this.fillColor;
+    reversedFoot.shape = toBezier(verticesInverted);
     return reversedFoot;
   }
+  public void translate(float x, float y) {
+    shape.translate(x, y);
+  }
   public void reverseX() {
+    RPoint[] verticesInverted = new RPoint[detail];
     for(int i = 0; i < detail; i++) {
-      points[i].x = - points[i].x;
+      verticesInverted[i] = new RPoint(- vertices[i].x, vertices[i].y);
     }
+    shape = toBezier(verticesInverted);
   }
   public Object clone() throws CloneNotSupportedException {  
-      return super.clone();  
+      return super.clone();
   }
 }
