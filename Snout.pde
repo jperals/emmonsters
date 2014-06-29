@@ -52,6 +52,14 @@ class Snout extends BodyPart {
       translate(0, (rhinariumRadius - snoutHeight)/2);
       rhinarium.draw();
     }
+    else {
+      float x1 = 10,
+            x2 = x1 - 2,
+            y1 = snoutHeight/2,
+            y2 = y1 + 2;
+      line(x1, y1, x2, y2);
+      line(-x1, y1, -x2, y2);
+    }
     popStyle();
     popMatrix();
     mouth.draw();
