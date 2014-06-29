@@ -16,7 +16,7 @@ class Trunk {
     fillColor = #FFFFFF;
     strokeColor = #555555;
     this.detail = detail;
-    shape = new RPolygon();
+    RPoint[] vertices = new RPoint[detail];
     float angle = -PI/2,
           angleIncrement = TWO_PI / detail;
     for(int i = 0; i < detail; i++) {
@@ -24,9 +24,10 @@ class Trunk {
       float distanceToCenter = radius*(1 + (noise(1) - 0.5)/5);
       int x = (int)(distanceToCenter*cos(angle)),
           y = (int)(distanceToCenter*sin(angle));
-      shape.addPoint(x, y);
+      vertices[i] = new RPoint(x, y);
       angle += angleIncrement;
     }
+    shape = toBezier(vertices).toPolygon();
   }
   public void draw() {
     RPoint[] points = shape.getPoints();

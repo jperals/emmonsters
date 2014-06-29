@@ -8,7 +8,7 @@ class Mascot extends BodyPart {
   private Foot leftFoot, rightFoot;
   private int detail = 10,
               trunkRadius = 100,
-              headRadius = 75 + (int)random(-10, 10),
+              headRadius = 95 + (int)random(-10, 10),
               headPosition = -(int)random(trunkRadius*0.7 + headRadius, trunkRadius*2),
               strokeWidth = 4;
   private RPolygon shape;
@@ -23,7 +23,8 @@ class Mascot extends BodyPart {
     RPoint[] trunkPoints = trunk.shape.getPoints(),
              headPoints = head.shape.getPoints();
     RPoint[] neckPoints = new RPoint[8];
-    float neckWidthUpper = random(0.75, 1.9)*headRadius;
+    RPoint[] headBoundingBox = head.shape.getBoundsPoints();
+    float neckWidthUpper = random(0.65, 0.95)*(headBoundingBox[1].x - headBoundingBox[0].x);
     float neckWidthLower = max(random(0.3, 1.9)*trunkRadius, neckWidthUpper);
     neckPoints[0] = new RPoint(- neckWidthUpper/2, headPosition);
     neckPoints[1] = new RPoint(neckWidthUpper/2, headPosition);
