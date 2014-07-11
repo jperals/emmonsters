@@ -1,19 +1,24 @@
 class Mascot extends BodyPart {
   private Arm leftArm, rightArm;
-  private color fillColor,
+  private Belly belly;
+  private boolean drawBelly;
+  private color secondaryColor,
                 strokeColor = #555555;
   private Head head;
   private Neck neck;
   private Trunk trunk;
-  private Foot leftFoot, rightFoot;
+  private Foot leftFoot,
+               rightFoot;
   private int detail = 10,
               trunkRadius = 120,
               headRadius = 95 + (int)random(-10, 10),
               headPosition = -(int)random(trunkRadius*0.5 + headRadius, trunkRadius*1.5),
               strokeWidth = 4;
   Mascot() {
-    fillColor = getNewColor();
+    secondaryColor = getNewColor();
     head = new Head(headRadius);
+    belly = new Belly(headRadius*2/3);
+    drawBelly = randomBoolean(0.25);
     head.setColor(fillColor);
     head.moveBy(0, headPosition);
     trunk = new Trunk(trunkRadius);
@@ -36,9 +41,10 @@ class Mascot extends BodyPart {
     leftFoot.moveBy(-80, trunkRadius - 50);
     rightFoot.moveBy(80, trunkRadius - 50);
     //rightFoot = leftFoot.clone().reverseX();
-    color feetColor = getNewColor();
-    leftFoot.setColor(feetColor);
-    rightFoot.setColor(feetColor);
+    leftFoot.setColor(secondaryColor);
+    rightFoot.setColor(secondaryColor);
+    belly.setColor(secondaryColor);
+    head.setSnoutColor(secondaryColor);
     rightArm = new Arm();
     leftArm = rightArm.cloneReversed();
     leftArm.shape.rotate(PI/3);
@@ -75,6 +81,9 @@ class Mascot extends BodyPart {
     if(debug) {
       //neck.shape.draw();
       head.shape.draw();
+    }
+    if(drawBelly) {
+      belly.draw();
     }
     rightArm.draw();
     leftArm.draw();

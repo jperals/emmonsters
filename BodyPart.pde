@@ -6,9 +6,7 @@ class BodyPart {
   BodyPart() {
     shape = new RShape();
     childParts = new ArrayList<BodyPart>();
-    int blueComponent = (int)random(127, 255),
-        greenComponent = (int)random(blueComponent, 255);
-    fillColor = color(random(greenComponent, 255), greenComponent, blueComponent);
+    fillColor = getNewColor();
   }
   public void draw() {
     pushStyle();

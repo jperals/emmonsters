@@ -5,8 +5,7 @@ class Snout extends BodyPart {
                   drawContourBottom,
                   drawRhinarium,
                   waved;
-  private color snoutColor = #BB9944,
-                rhinariumColor = #331100;
+  private color rhinariumColor = #331100;
   private int snoutWidth, snoutHeight, rhinariumRadius;
   private IrregularCircle rhinarium;
   private IrregularEllipse outerSnout;
@@ -29,9 +28,6 @@ class Snout extends BodyPart {
   }
   public void draw() {
     pushStyle();
-    //fill(fillColor);
-    noFill();
-    pushStyle();
     if(!drawContourBottom) {
       noFill();
       noStroke();
@@ -40,13 +36,6 @@ class Snout extends BodyPart {
       fill(fillColor);
     }
     outerSnout.draw();
-    popStyle();
-    if(!drawContourBottom && drawContourTop) {
-      int outerSnoutDetail = outerSnout.getNumberOfPoints();
-      float angleBetweenPoints = (2*PI) / outerSnoutDetail;
-      int pointsToMoveBack = outerSnoutDetail/2;
-      //outerSnout.drawPartial(-pointsToMoveBack, (int)(outerSnoutDetail/2) - pointsToMoveBack);
-    }
     pushMatrix();
     if(drawRhinarium) {
       float verticalDistance = snoutHeight/2 - rhinariumRadius;

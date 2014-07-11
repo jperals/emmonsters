@@ -93,5 +93,8 @@ class Head extends BodyPart {
     popMatrix();
     //bezierShape.draw();
   }
+  public void setSnoutColor(color snoutColor) {
+    snout.setColor(snoutColor);
+  }
 }
 
