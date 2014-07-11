@@ -1,4 +1,5 @@
 class Eye {
+  public boolean hasLashes;
   private color eyeballColor = #FFFFFF,
                 irisColor = color(random(127, 207), random(127, 207), random(127, 207)),
                 pupilColor = #000000;
@@ -8,6 +9,7 @@ class Eye {
     this(38);
   }
   Eye(int radius) {
+    hasLashes = randomBoolean();
     detail = (int)random(5, 8);
     eyeballRadius = radius;
     irisRadius = eyeballRadius / 2;
@@ -15,6 +17,9 @@ class Eye {
     irregularCircle = new IrregularCircle(eyeballRadius, detail);
   }
   public void draw() {
+    if(hasLashes) {
+      drawLashes();
+    }
     pushStyle();
     pushMatrix();
     fill(eyeballColor);
@@ -28,6 +33,12 @@ class Eye {
     irregularCircle.draw();
     popMatrix();
     popStyle();
+  }
+  private void drawLashes() {
+    int lashLength = eyeballRadius*3/2;
+    line(0, 0, -15, -lashLength);
+    line(0, 0, 0, -lashLength);
+    line(0, 0, 15, -lashLength);
   }
 }
 

@@ -1,4 +1,5 @@
 class Head extends BodyPart {
+  private boolean withEyelashes;
   private color strokeColor;
   private Ear leftEar, rightEar;
   private Eye leftEye, rightEye;
@@ -16,6 +17,7 @@ class Head extends BodyPart {
   Head(int radius) {
     this.radius = radius;
     strokeColor = #555555;
+    withEyelashes = randomBoolean();
     detail = (int)random(4, 10);
     earDetail = (int)random(3, 6);
     eyeRadius = (int)random(25, 38);
@@ -24,6 +26,8 @@ class Head extends BodyPart {
     rightEar = leftEar.reversed();
     leftEye = new Eye(eyeRadius);
     rightEye = new Eye(eyeRadius);
+    leftEye.hasLashes = withEyelashes;
+    rightEye.hasLashes = withEyelashes;
     snout = new Snout(snoutRadius);
     snout.fillColor = fillColor;
     snout.moveBy(0, eyeSeparation/2 + snoutRadius/2);
