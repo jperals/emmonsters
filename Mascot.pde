@@ -57,9 +57,9 @@ class Mascot extends BodyPart {
     leftArm.setColor(fillColor);
     rightArm.setColor(fillColor);
     color wingColor = getNewColor((int)red(fillColor));
-    rightWing = new Wing(140);
+    rightWing = new Wing(120);
     rightWing.setColor(wingColor);
-    leftWing = new Wing(-140);
+    leftWing = new Wing(-120);
     leftWing.setColor(wingColor);
     shape = trunk.shape.union(neck.shape).union(head.shape);
   }
