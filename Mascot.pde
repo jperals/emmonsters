@@ -11,7 +11,7 @@ class Mascot extends BodyPart {
                rightFoot;
   private int detail = 10,
               trunkRadius = 120,
-              headRadius = 95 + (int)random(-10, 10),
+              headRadius = 105,
               headPosition = -(int)random(trunkRadius*0.5 + headRadius, trunkRadius*1.5),
               strokeWidth = 4;
   Mascot() {

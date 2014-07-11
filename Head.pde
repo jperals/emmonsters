@@ -12,7 +12,7 @@ class Head extends BodyPart {
               strokeWidth = 5;
   private Snout snout;
   Head() {
-    this(95);
+    this(105);
   }
   Head(int radius) {
     this.radius = radius;
