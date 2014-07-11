@@ -9,15 +9,17 @@ class Wing extends BodyPart {
     wingWidth = abs(wingLength/3);
     boolean isLeft = wingLength < 0;
     Feather feather1 = new Feather(wingWidth, wingLength),
-            feather2 = new Feather(wingWidth, wingLength),
-            feather3 = new Feather(wingWidth, wingLength);
+            feather2 = new Feather((int)(wingWidth*0.8), (int)(wingLength*0.8)),
+            feather3 = new Feather((int)(wingWidth*0.65), (int)(wingLength*0.65)),
+            feather4 = new Feather((int)(wingWidth*0.55), (int)(wingLength*0.55));
     float rotateAngle = PI/12;
     if(isLeft) {
       rotateAngle = - rotateAngle;
     }
     feather2.shape.rotate(rotateAngle);
     feather3.shape.rotate(rotateAngle * 2);
-    shape = feather1.shape.union(feather2.shape).union(feather3.shape);
+    feather4.shape.rotate(rotateAngle * 3);
+    shape = feather1.shape.union(feather2.shape).union(feather3.shape).union(feather4.shape);
   }
   public void draw() {
     pushStyle();
