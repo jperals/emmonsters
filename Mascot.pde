@@ -1,19 +1,22 @@
 class Mascot extends BodyPart {
-  private Arm leftArm, rightArm;
+  private Arm leftArm,
+              rightArm;
   private Belly belly;
   private boolean drawBelly;
   private color secondaryColor,
                 strokeColor = #555555;
   private Head head;
-  private Neck neck;
-  private Trunk trunk;
-  private Foot leftFoot,
-               rightFoot;
   private int detail = 10,
               trunkRadius = 120,
               headRadius = 105,
               headPosition = -(int)random(trunkRadius*0.5 + headRadius, trunkRadius*1.5),
               strokeWidth = 4;
+  private Neck neck;
+  private Trunk trunk;
+  private Foot leftFoot,
+               rightFoot;
+  private Wing leftWing,
+               rightWing;
   Mascot() {
     secondaryColor = getNewColor();
     head = new Head(headRadius);
@@ -53,6 +56,11 @@ class Mascot extends BodyPart {
     leftArm.translate(-40, -40);
     leftArm.setColor(fillColor);
     rightArm.setColor(fillColor);
+    color wingColor = getNewColor((int)red(fillColor));
+    rightWing = new Wing(140);
+    rightWing.setColor(wingColor);
+    leftWing = new Wing(-140);
+    leftWing.setColor(wingColor);
     shape = trunk.shape.union(neck.shape).union(head.shape);
   }
   public void draw() {
@@ -62,6 +70,17 @@ class Mascot extends BodyPart {
     //noFill();
     stroke(strokeColor);
     strokeWeight(strokeWidth);
+    pushMatrix();
+    rotate(-PI/4);
+    translate(trunkRadius*2/3, 0);
+    rightWing.draw();
+    popMatrix();
+    pushMatrix();
+    rotate(-PI*3/4);
+    translate(trunkRadius*2/3, 0);
+    rotate(PI);
+    leftWing.draw();
+    popMatrix();
     pushMatrix();
     translate(0, headPosition);
     head.drawEars();
