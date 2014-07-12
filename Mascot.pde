@@ -2,7 +2,9 @@ class Mascot extends BodyPart {
   private Arm leftArm,
               rightArm;
   private Belly belly;
-  private boolean drawBelly;
+  private boolean drawBelly,
+                  hasWings,
+                  hasArms;
   private color secondaryColor,
                 strokeColor = #555555;
   private Head head;
@@ -22,6 +24,8 @@ class Mascot extends BodyPart {
     head = new Head(headRadius);
     belly = new Belly(headRadius*2/3);
     drawBelly = randomBoolean(0.25);
+    hasWings = randomBoolean(0.25);
+    hasArms = !hasWings || randomBoolean(0.5);
     head.setColor(fillColor);
     head.moveBy(0, headPosition);
     trunk = new Trunk(trunkRadius);
@@ -57,45 +61,33 @@ class Mascot extends BodyPart {
     leftArm.setColor(fillColor);
     rightArm.setColor(fillColor);
     color wingColor = getNewColor((int)red(fillColor));
-    rightWing = new Wing(120);
-    rightWing.setColor(wingColor);
     leftWing = new Wing(-120);
+    rightWing = new Wing(120);
+    float wingAngle = random(PI/12, PI/6);
     leftWing.setColor(wingColor);
+    rightWing.setColor(wingColor);
+    leftWing.shape.translate(-trunkRadius*2/3, -trunkRadius/3);
+    leftWing.shape.rotate(wingAngle);
+    rightWing.shape.translate(trunkRadius*2/3, -trunkRadius/3);
+    rightWing.shape.rotate(-wingAngle);
     shape = trunk.shape.union(neck.shape).union(head.shape);
+    if(!hasArms) {
+      shape = shape.union(leftWing.shape).union(rightWing.shape);
+    }
   }
   public void draw() {
     pushMatrix();
     translate(width/2, height/2 - headPosition/2);
     fill(fillColor);
-    //noFill();
     stroke(strokeColor);
     strokeWeight(strokeWidth);
-    pushMatrix();
-    rotate(-PI/4);
-    translate(trunkRadius*2/3, 0);
-    rightWing.draw();
-    popMatrix();
-    pushMatrix();
-    rotate(-PI*3/4);
-    translate(trunkRadius*2/3, 0);
-    rotate(PI);
-    leftWing.draw();
-    popMatrix();
+    if(hasWings && hasArms) {
+      drawWings();
+    }
     pushMatrix();
     translate(0, headPosition);
     head.drawEars();
     popMatrix();
-    /*RPoint[] points = shape.getPoints();
-    beginShape();
-    for(int i = 0; i < points.length + 3; i++) {
-      int j = i % points.length;
-      RPoint point = points[j];
-      curveVertex(point.x, point.y);
-      if(debug) {
-        ellipse(point.x, point.y, 20, 20);
-      }
-    }
-    endShape();*/
     shape.draw();
     if(debug) {
       //neck.shape.draw();
@@ -104,8 +96,10 @@ class Mascot extends BodyPart {
     if(drawBelly) {
       belly.draw();
     }
-    rightArm.draw();
-    leftArm.draw();
+    if(hasArms) {
+      rightArm.draw();
+      leftArm.draw();
+    }
     leftFoot.draw();
     rightFoot.draw();
     pushMatrix();
@@ -114,6 +108,10 @@ class Mascot extends BodyPart {
     popMatrix();
     //neck.shape.draw();
     popMatrix();
+  }
+  private void drawWings() {
+    rightWing.draw();
+    leftWing.draw();
   }
 }
 
