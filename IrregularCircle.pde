@@ -1,7 +1,7 @@
 class IrregularCircle {
   public RPolygon shape;
   private int detail, 
-          radius;
+              radius;
   private PVector[] points;
   IrregularCircle() {
     this(30, (int)random(5, 8));

@@ -33,6 +33,9 @@ class BodyPart {
       childParts.get(i).moveBy(x, y);
     }*/
   }
+  public void setColor(int redComponent, int greenComponent, int blueComponent) {
+    setColor(color(redComponent, greenComponent, blueComponent));
+  }
   public void setColor(color newColor) {
     setColor(newColor, false);
   }

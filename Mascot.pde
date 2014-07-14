@@ -86,6 +86,7 @@ class Mascot extends BodyPart {
     }
     pushMatrix();
     translate(0, headPosition);
+    head.drawAntennae();
     head.drawEars();
     popMatrix();
     shape.draw();
@@ -106,7 +107,6 @@ class Mascot extends BodyPart {
     translate(0, headPosition);
     head.drawFace();
     popMatrix();
-    //neck.shape.draw();
     popMatrix();
   }
   private void drawWings() {

@@ -6,7 +6,7 @@ color backgroundColor;
 Mascot mascot;
 
 void setup() {
-  size(500, 500);
+  size(500, 600);
   smooth();
   backgroundColor = color(192, 192, 192);
   RG.init( this );

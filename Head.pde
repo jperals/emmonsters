@@ -1,5 +1,8 @@
 class Head extends BodyPart {
-  private boolean withEyelashes;
+  private Antenna leftAntenna,
+                  rightAntenna;
+  private boolean withAntennae,
+                  withEyelashes;
   private color strokeColor;
   private Ear leftEar, rightEar;
   private Eye leftEye, rightEye;
@@ -17,11 +20,18 @@ class Head extends BodyPart {
   Head(int radius) {
     this.radius = radius;
     strokeColor = #555555;
+    withAntennae = randomBoolean(0.25);
     withEyelashes = randomBoolean();
     detail = (int)random(4, 10);
     earDetail = (int)random(3, 6);
     eyeRadius = (int)random(25, 38);
     snoutRadius = (int)random(25, 45);
+    leftAntenna = new Antenna();
+    rightAntenna = leftAntenna.cloneReversed();
+    leftAntenna.shape.rotate(-PI/8);
+    rightAntenna.shape.rotate(PI/8);
+    leftAntenna.moveBy(-radius/3, -radius*3/4);
+    rightAntenna.moveBy(radius/3, -radius*3/4);
     leftEar = new Ear(earDetail);
     rightEar = leftEar.cloneReversed();
     addChild(leftEar);
@@ -73,6 +83,12 @@ class Head extends BodyPart {
     endShape();
     popMatrix();
     drawFace();
+  }
+  public void drawAntennae() {
+    if(withAntennae) {
+      leftAntenna.draw();
+      rightAntenna.draw();
+    }
   }
   public void drawEars() {
     float earAngle = 45*2*PI/360;
