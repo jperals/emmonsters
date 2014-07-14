@@ -23,7 +23,9 @@ class Head extends BodyPart {
     eyeRadius = (int)random(25, 38);
     snoutRadius = (int)random(25, 45);
     leftEar = new Ear(earDetail);
-    rightEar = leftEar.reversed();
+    rightEar = leftEar.cloneReversed();
+    addChild(leftEar);
+    addChild(rightEar);
     leftEye = new Eye(eyeRadius);
     rightEye = new Eye(eyeRadius);
     leftEye.hasLashes = withEyelashes;
@@ -97,6 +99,8 @@ class Head extends BodyPart {
     popMatrix();
     //bezierShape.draw();
   }
+/*  public void setColor(color desiredColor) {
+  }*/
   public void setSnoutColor(color snoutColor) {
     snout.setColor(snoutColor);
   }

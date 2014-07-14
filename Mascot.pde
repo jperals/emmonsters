@@ -26,7 +26,7 @@ class Mascot extends BodyPart {
     drawBelly = randomBoolean(0.25);
     hasWings = randomBoolean(0.25);
     hasArms = !hasWings || randomBoolean(0.5);
-    head.setColor(fillColor);
+    head.setColor(fillColor, true);
     head.moveBy(0, headPosition);
     trunk = new Trunk(trunkRadius);
     RPoint[] trunkPoints = trunk.shape.getPoints(),
