@@ -106,6 +106,7 @@ class Mascot extends BodyPart {
     pushMatrix();
     translate(0, headPosition);
     head.drawFace();
+    head.drawHair();
     popMatrix();
     popMatrix();
   }

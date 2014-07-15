@@ -2,10 +2,12 @@ class Head extends BodyPart {
   private Antenna leftAntenna,
                   rightAntenna;
   private boolean withAntennae,
-                  withEyelashes;
+                  withEyelashes,
+                  withHair;
   private color strokeColor;
   private Ear leftEar, rightEar;
   private Eye leftEye, rightEye;
+  private HairMass hairMass;
   private int detail,
               earDetail,
               eyeRadius,
@@ -22,6 +24,7 @@ class Head extends BodyPart {
     strokeColor = #555555;
     withAntennae = randomBoolean(0.25);
     withEyelashes = randomBoolean();
+    withHair = randomBoolean(0.3);
     detail = (int)random(4, 10);
     earDetail = (int)random(3, 6);
     eyeRadius = (int)random(25, 38);
@@ -36,6 +39,7 @@ class Head extends BodyPart {
     rightEar = leftEar.cloneReversed();
     addChild(leftEar);
     addChild(rightEar);
+    hairMass = new HairMass();
     leftEye = new Eye(eyeRadius);
     rightEye = new Eye(eyeRadius);
     leftEye.hasLashes = withEyelashes;
@@ -55,6 +59,8 @@ class Head extends BodyPart {
       angle += angleIncrement;
     }
     shape = toBezier(vertices);
+    RPoint[] boundingBox = shape.getBoundsPoints();
+    hairMass.moveBy(0, boundingBox[0].y);
     //println(snout.shape.getCenter().x, snout.shape.getCenter().y);
     //boolean overflowsHead = !(shape.toShape().contains(snout.shape.getPoints()));
     boolean snoutOverflowsHead = false;
@@ -114,6 +120,11 @@ class Head extends BodyPart {
     rightEye.draw();
     popMatrix();
     //bezierShape.draw();
+  }
+  public void drawHair() {
+    if(withHair) {
+      hairMass.draw();
+    }
   }
 /*  public void setColor(color desiredColor) {
   }*/
