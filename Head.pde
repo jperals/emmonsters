@@ -73,6 +73,9 @@ class Head extends BodyPart {
     }
     snout.overflowsHead = snoutOverflowsHead;
     shape = shape.union(snout.shape);
+    if(!withHair && randomBoolean(0.35)) {
+      shape = shape.union(hairMass.shape);
+    }
     this.addChild(snout);
   }
   public void draw() {
