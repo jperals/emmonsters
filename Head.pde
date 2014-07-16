@@ -132,6 +132,7 @@ class Head extends BodyPart {
 /*  public void setColor(color desiredColor) {
   }*/
   public void setSnoutColor(color snoutColor) {
+    snout.setBodyColor(fillColor);
     snout.setColor(snoutColor);
   }
 }

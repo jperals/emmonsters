@@ -1,14 +1,15 @@
 class Snout extends BodyPart {
   public boolean overflowsHead;
-  private Mouth mouth;
   private boolean drawContourTop,
                   drawContourBottom,
                   drawRhinarium,
                   waved;
-  private color rhinariumColor = #331100;
+  private color bodyColor,
+                rhinariumColor = #331100;
   private int snoutWidth, snoutHeight, rhinariumRadius;
   private IrregularCircle rhinarium;
   private IrregularEllipse outerSnout;
+  private Mouth mouth;
   Snout() {
     this(15);
   }
@@ -28,14 +29,20 @@ class Snout extends BodyPart {
   }
   public void draw() {
     pushStyle();
-    if(!drawContourBottom) {
-      noFill();
-      noStroke();
+    fill(fillColor);
+    pushStyle();
+    if(drawContourBottom) {
+      mouth.setColor(fillColor);
     }
     else {
-      fill(fillColor);
+      noFill();
+      noStroke();
+      mouth.setColor(bodyColor);
     }
     outerSnout.draw();
+    popStyle();
+    mouth.draw();
+    popStyle();
     pushMatrix();
     if(drawRhinarium) {
       float verticalDistance = snoutHeight/2 - rhinariumRadius;
@@ -46,10 +53,12 @@ class Snout extends BodyPart {
         points[2] = new RPoint(snoutWidth/3, verticalDistance/2 + 3);
         drawCurve(points);
       }
+      pushStyle();
       fill(rhinariumColor);
       noStroke();
       translate(0, (rhinariumRadius - snoutHeight)/2);
       rhinarium.draw();
+      popStyle();
     }
     else {
       float x1 = 10,
@@ -59,14 +68,15 @@ class Snout extends BodyPart {
       line(x1, y1, x2, y2);
       line(-x1, y1, -x2, y2);
     }
-    popStyle();
     popMatrix();
-    mouth.draw();
   }
   public void moveBy(float x, float y) {
     outerSnout.shape.translate(x, y);
     rhinarium.shape.translate(x, y);
     mouth.moveBy(x, y);
+  }
+  public void setBodyColor(color bodyColor) {
+    this.bodyColor = bodyColor;
   }
 }
 
