@@ -8,7 +8,7 @@ Mascot mascot;
 void setup() {
   size(500, 600);
   smooth();
-  backgroundColor = color(192, 192, 192);
+  backgroundColor = color(255, 255, 255);
   RG.init( this );
   mascot = new Mascot();
 }
