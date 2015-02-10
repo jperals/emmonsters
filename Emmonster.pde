@@ -1,4 +1,4 @@
-class Mascot extends BodyPart {
+class Emmonster extends BodyPart {
   private Arm leftArm,
               rightArm;
   private Belly belly;
@@ -19,7 +19,7 @@ class Mascot extends BodyPart {
                rightFoot;
   private Wing leftWing,
                rightWing;
-  Mascot() {
+  Emmonster() {
     secondaryColor = getNewColor();
     head = new Head(headRadius);
     belly = new Belly(headRadius*2/3);
