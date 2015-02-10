@@ -6,6 +6,7 @@ public class Foot extends BodyPart implements Cloneable {
     this((int)random(9, 12));
   }
   Foot(int detail) {
+    boolean longFingers = true;//randomBoolean(0.3);
     this.detail = detail;
     footWidth = (int)random(35, 40);
     footLength = (int)random(50, 70);
@@ -27,15 +28,28 @@ public class Foot extends BodyPart implements Cloneable {
       angle += angleIncrement;
     }
     shape = toBezier(vertices);
+    if(longFingers) {
+      int numberOfFingers = (int)random(3, 5);
+      int fingerWidth = footLength / numberOfFingers;
+      for(int i = 0; i < numberOfFingers; i++) {
+        IrregularEllipse finger = new IrregularEllipse(footLength, fingerWidth);
+        float distanceToCenter = - fingerWidth*numberOfFingers/2 + fingerWidth*(i + 0.5);
+        finger.shape.rotate(distanceToCenter/60);
+        finger.shape.translate(footLength / 3, distanceToCenter);
+        shape = shape.union(finger.shape);
+      }
+    }
   }
   public Foot cloneReversed() {
     Foot reversedFoot = new Foot(detail);
-    RPoint[] verticesInverted = new RPoint[detail];
-    for(int i = 0; i < detail; i++) {
-      verticesInverted[i] = new RPoint(- vertices[i].x, vertices[i].y);
-    }
-    reversedFoot.footLength = this.footLength;
-    reversedFoot.shape = toBezier(verticesInverted);
+    //RPoint[] verticesInverted = shape.getPoints();
+    RShape newShape = new RShape();
+    /*for(int i = 0; i < detail; i++) {
+      RPoint newPoint = new RPoint(- verticesInverted[i].x, verticesInverted[i].y);
+      newShape.addMoveTo(newPoint);
+    }*/
+    
+    reversedFoot.shape = newShape;
     return reversedFoot;
   }
   public void translate(float x, float y) {

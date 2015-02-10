@@ -42,9 +42,9 @@ class Mascot extends BodyPart {
     neckPoints[3] = new RPoint(- neckWidthLower/2, 0);
     neck = new Neck(neckPoints);
     rightFoot = new Foot();
-    leftFoot = rightFoot.cloneReversed();
+    leftFoot = rightFoot.cloneReversed();//(Foot)rightFoot.clone();
     rightFoot.shape.rotate(PI*5/3);
-    leftFoot.shape.rotate(-PI*5/3);
+    //leftFoot.shape.rotate(PI-PI*5/3);
     leftFoot.moveBy(-80, trunkRadius - 50);
     rightFoot.moveBy(80, trunkRadius - 50);
     //rightFoot = leftFoot.clone().reverseX();
