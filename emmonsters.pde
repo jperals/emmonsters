@@ -3,19 +3,19 @@ import java.util.Date; // Required to use the Date class further down
 
 boolean debug = false;
 color backgroundColor;
-Mascot mascot;
+Emmonster emmonster;
 
 void setup() {
   size(500, 600);
   smooth();
   backgroundColor = color(255, 255, 255);
   RG.init( this );
-  mascot = new Mascot();
+  emmonster = new Emmonster();
 }
 
 void draw() {
   background(backgroundColor);
-  mascot.draw();
+  emmonster.draw();
 }
 
 void keyPressed() {
@@ -24,7 +24,7 @@ void keyPressed() {
       debug = !debug;
       break;
     case 'r':
-      mascot = new Mascot();
+      emmonster = new Emmonster();
       break;
     case 's':
       Date date = new Date(); // Including the system time in the screenshot file name allows us to keep any screenshots we want instead of overriding the same file all the time
