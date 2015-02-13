@@ -11,20 +11,21 @@ void setup() {
   backgroundColor = color(191, 191, 191);
   RG.init( this );
   emmonster = new Emmonster();
+  redraw();
 }
 
 void draw() {
-  background(backgroundColor);
-  emmonster.draw();
 }
 
 void keyPressed() {
   switch(key) {
     case 'd':
       debug = !debug;
+      redraw();
       break;
     case 'r':
       emmonster = new Emmonster();
+      redraw();
       break;
     case 's':
       Date date = new Date(); // Including the system time in the screenshot file name allows us to keep any screenshots we want instead of overriding the same file all the time
@@ -32,6 +33,12 @@ void keyPressed() {
       background(255, 255, 255);
       emmonster.draw();
       saveFrame("screenshots/screenshot-" + formattedDate + "-######.png");
+      redraw();
       break;
   }
+}
+
+void redraw() {
+  background(backgroundColor);
+  emmonster.draw();
 }
