@@ -41,10 +41,15 @@ class Emmonster extends BodyPart {
     neckPoints[2] = new RPoint(neckWidthLower/2, 0);
     neckPoints[3] = new RPoint(- neckWidthLower/2, 0);
     neck = new Neck(neckPoints);
-    rightFoot = new Foot();
+//    int footDetail = (int)random(9, 12);
+//    int footWidth = (int)random(35, 40);
+//    int footHeight = (int)random(50, 70);
+//    rightFoot = new Foot(footDetail, footWidth, footHeight);
+    rightFoot = new Foot("right");
+    //leftFoot = new Foot(footDetail, footWidth, footHeight);
     leftFoot = rightFoot.cloneReversed();//(Foot)rightFoot.clone();
     rightFoot.shape.rotate(PI*5/3);
-    //leftFoot.shape.rotate(PI-PI*5/3);
+    leftFoot.shape.rotate(PI-PI*5/3);
     leftFoot.moveBy(-80, trunkRadius - 50);
     rightFoot.moveBy(80, trunkRadius - 50);
     //rightFoot = leftFoot.clone().reverseX();
