@@ -12,7 +12,8 @@ class Emmonster extends BodyPart {
               trunkRadius = 120,
               headRadius = 120,
               headPosition = -(int)random(trunkRadius*0.5 + headRadius, trunkRadius*1.5),
-              strokeWidth = 4;
+              strokeWidth = 4,
+              wingSize = 120;
   private Neck neck;
   private Trunk trunk;
   private Foot leftFoot,
@@ -71,8 +72,12 @@ class Emmonster extends BodyPart {
     leftArm.setColor(fillColor);
     rightArm.setColor(fillColor);
     color wingColor = getNewColor((int)red(fillColor));
-    leftWing = new Wing(-120);
-    rightWing = new Wing(120);
+    wingSize *= random(0.8, 1.2);
+    if(!hasArms) {
+      wingSize *= 1.25;
+    }
+    leftWing = new Wing(-wingSize);
+    rightWing = new Wing(wingSize);
     float wingAngle = random(PI/12, PI/6);
     leftWing.setColor(wingColor);
     rightWing.setColor(wingColor);
