@@ -10,7 +10,7 @@ class Emmonster extends BodyPart {
   private Head head;
   private int detail = 10,
               trunkRadius = 120,
-              headRadius = 105,
+              headRadius = 120,
               headPosition = -(int)random(trunkRadius*0.5 + headRadius, trunkRadius*1.5),
               strokeWidth = 4;
   private Neck neck;

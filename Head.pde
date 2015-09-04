@@ -17,7 +17,7 @@ class Head extends BodyPart {
               strokeWidth = 5;
   private Snout snout;
   Head() {
-    this(105);
+    this(120);
   }
   Head(int radius) {
     this.radius = radius;
@@ -52,7 +52,7 @@ class Head extends BodyPart {
     vertices = new RPoint[detail];
     for(int i = 0; i < detail; i++) {
       //float distance = radius;
-      float distance = radius*(1 + (noise(i) - 0.5)/5);
+      float distance = radius*(1 + (noise(i) - 0.5)/7.5);
       float x = distance*cos(angle),
             y = distance*sin(angle);
       vertices[i] = new RPoint(x, y);
