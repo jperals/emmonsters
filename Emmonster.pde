@@ -17,9 +17,14 @@ class Emmonster extends BodyPart {
   private Trunk trunk;
   private Foot leftFoot,
                rightFoot;
+  private PVector center;
   private Wing leftWing,
                rightWing;
   Emmonster() {
+    this(width/2, height/2);
+  }
+  Emmonster(int x, int y) {
+    center = new PVector(x, y);
     secondaryColor = getNewColor();
     head = new Head(headRadius);
     belly = new Belly(headRadius*2/3);
@@ -82,7 +87,7 @@ class Emmonster extends BodyPart {
   }
   public void draw() {
     pushMatrix();
-    translate(width/2, height/2 - headPosition/2);
+    translate(center.x, center.y - headPosition/2);
     fill(fillColor);
     stroke(strokeColor);
     strokeWeight(strokeWidth);
