@@ -3,7 +3,8 @@ class Head extends BodyPart {
                   rightAntenna;
   private boolean withAntennae,
                   withEyelashes,
-                  withHair;
+                  withHair,
+                  withSideFur;
   private color strokeColor;
   private Ear leftEar, rightEar;
   private Eye leftEye, rightEye;
@@ -25,6 +26,7 @@ class Head extends BodyPart {
     withAntennae = randomBoolean(0.25);
     withEyelashes = randomBoolean();
     withHair = randomBoolean(0.3);
+    withSideFur = randomBoolean(0.25);
     detail = (int)random(4, 10);
     earDetail = (int)random(3, 6);
     eyeRadius = (int)random(25, 38);
@@ -61,6 +63,17 @@ class Head extends BodyPart {
     shape = toBezier(vertices);
     RPoint[] boundingBox = shape.getBoundsPoints();
     hairMass.moveBy(0, boundingBox[0].y);
+    if(withSideFur) {
+      int numberOfHairs = (int)random(7, 15);
+      HairMass cheekFurLeft = new HairMass(45, 55, numberOfHairs);
+      HairMass cheekFurRight = new HairMass(45, 55, numberOfHairs);
+      cheekFurLeft.shape.rotate(-PI);
+      cheekFurLeft.moveBy(boundingBox[0].x + 20, 10);
+      cheekFurRight.shape.rotate(PI);
+      cheekFurRight.moveBy(boundingBox[1].x - 20, 10);
+      shape = shape.union(cheekFurLeft.shape);
+      shape = shape.union(cheekFurRight.shape);
+    }
     //println(snout.shape.getCenter().x, snout.shape.getCenter().y);
     //boolean overflowsHead = !(shape.toShape().contains(snout.shape.getPoints()));
     boolean snoutOverflowsHead = false;

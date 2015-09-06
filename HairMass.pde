@@ -1,11 +1,16 @@
 class HairMass extends BodyPart {
   HairMass() {
-    this(20, 70);
+    this(20, 70, (int)random(7, 20), 2*PI);
   }
   HairMass(int minHairLength, int maxHairLength) {
-    int numberOfHairs = (int)random(7, 20);
+    this(minHairLength, maxHairLength, (int)random(7, 20), 2*PI);
+  }
+  HairMass(int minHairLength, int maxHairLength, int numberOfHairs) {
+    this(minHairLength, maxHairLength, numberOfHairs, 2*PI);
+  }
+  HairMass(int minHairLength, int maxHairLength, int numberOfHairs, float totalAngle) {
     float rotateAngle = PI / 2,
-          rotateAngleIncrement = 2 * PI / (float) numberOfHairs;
+          rotateAngleIncrement = totalAngle / (float) numberOfHairs;
     for(int i = 0; i < numberOfHairs; i++) {
       int hairLength = (int)random(minHairLength, maxHairLength);
       int hairWidth = (int)(random(minHairLength, maxHairLength)/3);
